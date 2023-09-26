@@ -94,7 +94,7 @@ public class CompetitionCode extends OpMode {
 
         //Mecanum Drive
         joystickX = gamepad1.left_stick_x; //joystick x-value
-        joystickY = -gamepad1.left_stick_y; //joystick y-value, inverted because controllers are weird
+        joystickY = gamepad1.left_stick_y; //joystick y-value, inverted because controllers are weird
         pivot = (gamepad1.right_stick_x / 2.5); //pivot value, to be added or subtracted near the end
         magnitude = Range.clip(Math.hypot(joystickX, joystickY), 0, 1); //actual "length" of joystick, to be multiplied by sin value
 
@@ -118,10 +118,10 @@ public class CompetitionCode extends OpMode {
         }
 
         //Sets Motor Power
-        LFMotor.setPower(LFPower);
-        LBMotor.setPower(LBPower);
-        RFMotor.setPower(RFPower);
-        RBMotor.setPower(RBPower);
+        LFMotor.setPower(-LFPower);
+        LBMotor.setPower(-LBPower);
+        RFMotor.setPower(-RFPower);
+        RBMotor.setPower(-RBPower);
 
         //Wheel Power Display
         telemetry.addData("Left Front", LFPower);//adds data to telemitry
@@ -245,7 +245,7 @@ public class CompetitionCode extends OpMode {
 
 
     public double getAngle() {
-        return imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZXY, AngleUnit.RADIANS).firstAngle;
+        return -(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZXY, AngleUnit.RADIANS).firstAngle);
     }
 
     public int tableValue() {

@@ -63,7 +63,7 @@ public class FieldCentricCode extends OpMode {
 
         //Mecanum Drive
         joystickX = gamepad1.left_stick_x; //joystick x-value
-        joystickY = -gamepad1.left_stick_y; //joystick y-value, inverted because controllers are weird
+        joystickY = gamepad1.left_stick_y; //joystick y-value, inverted because controllers are weird
         pivot = (gamepad1.right_stick_x / 2.5); //pivot value, to be added or subtracted near the end
         magnitude = Range.clip(Math.hypot(joystickX, joystickY), 0, 1); //actual "length" of joystick, to be multiplied by sin value
 
@@ -101,7 +101,7 @@ public class FieldCentricCode extends OpMode {
     }
 
     public double getAngle() {
-        return imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle; //zxy
+        return -(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle); //zxy
     }
 
 }
