@@ -134,11 +134,12 @@ public class CompetitionCode extends OpMode {
         //----------------
 
         //Claw
-        if (gamepad1.a) {
-            claw.setPosition(0.1);
+        /*if (gamepad1.a) {
+            claw.setPosition(1);
         } else {
-            claw.setPosition(0.4);
+            claw.setPosition(0.3);
         }
+        */
 
         //Turn Table Centralization
         if (gamepad1.x) {
