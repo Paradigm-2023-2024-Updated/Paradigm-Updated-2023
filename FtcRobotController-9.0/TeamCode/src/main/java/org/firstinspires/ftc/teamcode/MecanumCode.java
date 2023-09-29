@@ -68,10 +68,10 @@ public class MecanumCode extends OpMode {
             LBPower = LBPower / max;
         }
 
-        LFMotor.setPower(LFPower);//sets the motors power
-        LBMotor.setPower(LBPower);
-        RFMotor.setPower(RFPower);
-        RBMotor.setPower(RBPower);
+        LFMotor.setPower(-LFPower);//sets the motors power
+        LBMotor.setPower(-LBPower);
+        RFMotor.setPower(-RFPower);
+        RBMotor.setPower(-RBPower);
 
         telemetry.addData("Left Front", LFPower);//adds data to telemitry
         telemetry.addData("Right Front", RFPower);

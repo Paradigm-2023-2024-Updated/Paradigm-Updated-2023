@@ -21,7 +21,7 @@ public class ColSensor extends OpMode {
         //Display color values on phone
         telemetry.addData("Red", sensorColor.red());
         telemetry.addData("Green", sensorColor.green());
-        telemetry.addData("Blue", sensorColor.green());
+        telemetry.addData("Blue", sensorColor.blue());
         telemetry.update();
     }
 
