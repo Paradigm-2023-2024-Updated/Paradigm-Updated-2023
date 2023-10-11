@@ -27,7 +27,17 @@ public class WebCamCode extends OpMode {
 
         //Not sure if the timeout is necessary
         webcam.setMillisecondsPermissionTimeout(5000); // Timeout for obtaining permission is configurable. Set before opening.
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+            @Override
+            public void onOpened() {
+
+            }
+
+            @Override
+            public void onError(int errorCode) {
+
+            }
+        });
 
         //This code is meant to start streaming to phones
         webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
@@ -37,7 +47,7 @@ public class WebCamCode extends OpMode {
 
     }
     public void loop(){
-        git
+
         telemetry.addData("Frame Count", webcam.getFrameCount());
         telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
         telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
