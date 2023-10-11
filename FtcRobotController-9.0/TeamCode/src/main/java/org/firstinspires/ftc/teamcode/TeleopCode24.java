@@ -25,6 +25,7 @@ public class TeleopCode24 extends OpMode {
     double magnitude;
     double pivot;
     double max;
+    // indivitual motor movement or set hights. flip button? idk  reset button    grab    
 
 //_________________________________________________________________________________________
 
