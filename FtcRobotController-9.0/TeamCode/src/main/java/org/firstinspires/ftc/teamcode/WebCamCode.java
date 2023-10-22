@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -18,26 +19,20 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous(name = "WebCamCode")
 public class WebCamCode extends OpMode {
-    //CERTAIN CODE MIGHT BE IN THE WRONG SECTION! None of the good sources used the same "init, loop" format we use
 
-
-    //establish webcam variable
-    OpenCvWebcam webcam;
+    OpenCvWebcam webcam1 = null;
     @Override
     public void init(){
 
+        WebcamName webcamName = hardwareMap.get(WebcamName.class,"Webcam 1");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam1 = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
 
-        webcam.setPipeline(new WebCamCode.examplePipeline());
+        webcam1.setPipeline(new WebCamCode.examplePipeline());
 
-        //Not sure if the timeout is necessary
-        //webcam.setMillisecondsPermissionTimeout(5000); // Timeout for obtaining permission is configurable. Set before opening.
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+        webcam1.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             public void onOpened() {
-
-                webcam.startStreaming(640,360,OpenCvCameraRotation.UPRIGHT);
-
+                webcam1.startStreaming(640,360,OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -46,24 +41,10 @@ public class WebCamCode extends OpMode {
             }
         });
 
-        //This code is meant to start streaming to phones
-        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-
-        telemetry.addLine("Waiting for start");
-        telemetry.update();
-
     }
+
+
     public void loop(){
-
-        telemetry.addData("Frame Count", webcam.getFrameCount());
-        telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
-        telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
-        telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
-        telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
-        telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
-        telemetry.update();
-
-
     }
 
     class examplePipeline extends OpenCvPipeline{
@@ -102,11 +83,15 @@ public class WebCamCode extends OpMode {
             if (leftavgfin > rightavgfin){
 
                 telemetry.addLine("Left");
+                telemetry.addLine(""+leftavgfin);
+                telemetry.addLine(""+rightavgfin);
 
             }
             else{
 
                 telemetry.addLine("Right");
+                telemetry.addLine(""+leftavgfin);
+                telemetry.addLine(""+rightavgfin);
             }
 
 
