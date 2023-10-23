@@ -20,7 +20,7 @@ public class OpenCVTest extends OpMode {
         WebcamName webcamName = hardwareMap.get(WebcamName.class,"webcam");
         AprilTagProcessor aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
         VisionPortal visionPortal = VisionPortal.easyCreateWithDefaults(webcamName , aprilTagProcessor);
-        //int cameraMonitorViewId  = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","webCamName","webCamName");
+        int cameraMonitorViewId  = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","webCamName","webCamName");
 
 
 
