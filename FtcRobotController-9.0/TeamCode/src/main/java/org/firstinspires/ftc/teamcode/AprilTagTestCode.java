@@ -13,23 +13,6 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 @TeleOp(name = "AprilTagTestCode")
 public class AprilTagTestCode extends LinearOpMode {
-<<<<<<< HEAD
-
-
-
-    AprilTagProcessor tagProcessor = new AprilTagProcessor.Builder()
-            .setDrawAxes(true)
-            .setDrawCubeProjection(true)
-            .setDrawTagID(true)
-            .build();
-
-    VisionPortal visionPortal = new VisionPortal.Builder()
-            .addProcessor(tagProcessor)
-            .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
-            .setCameraResolution(new Size(640,480)) //adjust width and height as needed
-            .build();
-
-=======
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -45,13 +28,8 @@ public class AprilTagTestCode extends LinearOpMode {
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(640, 480)) //adjust width and height as needed
                 .build();
->>>>>>> 23e68edf0cc7d6d73f0dcc64cfaf973cd8f50f4b
 
-    waitForStart();
 
-<<<<<<< HEAD
-    while (!isStopRequested() && opModeIsActive()){
-=======
         waitForStart();
 
         while (!isStopRequested() && opModeIsActive()) {
@@ -66,7 +44,6 @@ public class AprilTagTestCode extends LinearOpMode {
                 telemetry.addData("pitch", tag.ftcPose.pitch);
                 telemetry.addData("yaw", tag.ftcPose.yaw);
             }
->>>>>>> 23e68edf0cc7d6d73f0dcc64cfaf973cd8f50f4b
 
             telemetry.update();
         }
