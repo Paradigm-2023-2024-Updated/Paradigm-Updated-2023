@@ -15,7 +15,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 public class AprilTagTestCode extends LinearOpMode {
 
     @Override
-    public void runOpMod() throws InterruptedException {
+    public void runOpMode() throws InterruptedException {
 
         AprilTagProcessor tagProcessor = new AprilTagProcessor.Builder()
                 .setDrawAxes(true)
