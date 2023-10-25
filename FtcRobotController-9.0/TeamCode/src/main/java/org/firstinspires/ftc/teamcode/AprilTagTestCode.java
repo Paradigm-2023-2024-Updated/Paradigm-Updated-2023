@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import android.util.Size;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 @TeleOp(name = "AprilTagTestCode")
-public class AprilTagTestCode extends OpMode {
+public class AprilTagTestCode extends LinearOpMode {
 
 
 
@@ -27,19 +28,10 @@ public class AprilTagTestCode extends OpMode {
             .setCameraResolution(new Size(640,480)) //adjust width and height as needed
             .build();
 
-    @Override
-    public void init(){
-   // public void runOpMode() throws InterruptedException{
 
+    waitForStart();
 
-
-    }
-
-    @Override
-    public void loop(){
-   // waitForStart();
-
-    //while (!isStopRequested() && opModeIsActive()){
+    while (!isStopRequested() && opModeIsActive()){
 
         if (tagProcessor.getDetections().size()>0){
             AprilTagDetection tag = tagProcessor.getDetections().get(0);
