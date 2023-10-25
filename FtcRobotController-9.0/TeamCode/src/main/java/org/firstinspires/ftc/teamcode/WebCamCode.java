@@ -37,7 +37,6 @@ public class WebCamCode extends OpMode {
 
     }
     public void loop(){
-        git
         telemetry.addData("Frame Count", webcam.getFrameCount());
         telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
         telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
