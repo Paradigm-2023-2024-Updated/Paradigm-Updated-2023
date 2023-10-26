@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import android.util.Size;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
-@TeleOp(name = "AprilTagTestCode")
+@Autonomous(name = "AprilTagTestCode")
 public class AprilTagTestCode extends LinearOpMode {
 
     @Override
@@ -37,6 +38,7 @@ public class AprilTagTestCode extends LinearOpMode {
             if (tagProcessor.getDetections().size() > 0) {
                 AprilTagDetection tag = tagProcessor.getDetections().get(0);
 
+                telemetry.addData("ID",tag.id);
                 telemetry.addData("x", tag.ftcPose.x);
                 telemetry.addData("y", tag.ftcPose.y);
                 telemetry.addData("z", tag.ftcPose.z);
