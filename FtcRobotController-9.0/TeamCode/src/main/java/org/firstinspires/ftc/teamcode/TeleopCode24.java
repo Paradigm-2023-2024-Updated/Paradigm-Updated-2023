@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 public class TeleopCode24 extends OpMode {
 
     DcMotor LFM, RBM, RFM, LBM, roller, extend, elbow;
-    Servo paper, claw, wrist, push;
+    Servo paper, claw, wrist, push, lift;
     BNO055IMU imu;
     double angle;
     double joystickX;
@@ -47,6 +47,9 @@ public class TeleopCode24 extends OpMode {
         claw = hardwareMap.servo.get("Claw");
         wrist = hardwareMap.servo.get("Wrist");
         push = hardwareMap.servo.get("Push");
+        lift = hardwareMap.servo.get("Lift");
+
+        paper.setPosition(1);
 
     }
 
@@ -138,6 +141,11 @@ public class TeleopCode24 extends OpMode {
             elbow.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             wrist.setPosition(0);
             claw.setPosition(0);
+        }
+        if (gamepad1.b) {
+            lift.setPosition(1):
+        }else {
+            lift.setPosition(0);
         }
 
     }
