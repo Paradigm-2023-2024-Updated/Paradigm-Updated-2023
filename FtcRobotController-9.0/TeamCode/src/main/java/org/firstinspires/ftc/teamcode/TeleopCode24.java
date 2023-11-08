@@ -143,7 +143,7 @@ public class TeleopCode24 extends OpMode {
             claw.setPosition(0);
         }
         if (gamepad1.b) {
-            lift.setPosition(1):
+            lift.setPosition(1);
         }else {
             lift.setPosition(0);
         }
