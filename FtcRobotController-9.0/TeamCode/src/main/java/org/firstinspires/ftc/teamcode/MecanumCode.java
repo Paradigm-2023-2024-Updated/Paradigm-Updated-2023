@@ -1,16 +1,28 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;                               //Importing of the files
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.teamcode.hardwareClasses.DriveTrain;
+import org.firstinspires.ftc.teamcode.hardwareClasses.Arm;
+import org.firstinspires.ftc.teamcode.hardwareClasses.Intake;
+import org.firstinspires.ftc.teamcode.hardwareClasses.Launcher;
+
+//hardware classes (added by max, if they're bad blame him)
+
 
 @TeleOp(name = "MecanumDrive")
 public class MecanumCode extends OpMode {
+
+    //define classes
+    DriveTrain robot = new DriveTrain();
+    Arm arm = new Arm();
+    Launcher launcher = new Launcher();
+    Intake intake = new Intake();
+
 
     //GamePad 1
     DcMotor LFMotor, RBMotor, RFMotor, LBMotor;
@@ -27,6 +39,9 @@ public class MecanumCode extends OpMode {
     @Override
     public void init() {
 
+        robot.init(hardwareMap);
+
+        /*
         //GamePad 1 Motor Setup
         LFMotor = hardwareMap.dcMotor.get("LFMotor");
         RBMotor = hardwareMap.dcMotor.get("RBMotor");
@@ -36,6 +51,7 @@ public class MecanumCode extends OpMode {
         //Reverse Necessary Motors
         RFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         RBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+         */
     }
 
 //___________________________________________________________________________________________
@@ -43,10 +59,13 @@ public class MecanumCode extends OpMode {
     @Override
     public void loop() {
 
+
         //Mecanum Drive
         joystickX = gamepad1.left_stick_x; //joystick x-value
         joystickY = -gamepad1.left_stick_y; //joystick y-value, inverted because controllers are weird
         pivot = (gamepad1.right_stick_x / 2.5); //pivot value, to be added or subtracted near the end
+
+        /*
         magnitude = Range.clip(Math.hypot(joystickX, joystickY), 0, 1); //actual "length" of joystick, to be multiplied by sin value
 
         //based on the x and y input measurements from the joystick, an angle is radians is calculated
@@ -72,12 +91,18 @@ public class MecanumCode extends OpMode {
         LBMotor.setPower(-LBPower);
         RFMotor.setPower(-RFPower);
         RBMotor.setPower(-RBPower);
+         */
 
+        // same this as all of the code above
+        robot.MecanumDrive(joystickX, joystickY, pivot);
+
+        /*
         telemetry.addData("Left Front", LFPower);//adds data to telemitry
         telemetry.addData("Right Front", RFPower);
         telemetry.addData("Left Back", LBPower);
         telemetry.addData("Right Back", RBPower);
         telemetry.update();
+         */
 
     }
 

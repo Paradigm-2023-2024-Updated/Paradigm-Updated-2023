@@ -47,11 +47,11 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             if (ColorDetectionPipeline.centerX >= 305 && ColorDetectionPipeline.centerX <= 335) {
                 telemetry.addData("Status", "Centered!");
             } else if (ColorDetectionPipeline.centerX < 305) {
-                // Turn right
+                // Turn Left
                 telemetry.addData("Status", "Turn Left");
                 // Add code to turn the robot right
             } else if (ColorDetectionPipeline.centerX > 335) {
-                // Turn left
+                // Turn right
                 telemetry.addData("Status", "Turn Right");
                 // Add code to turn the robot left
             }

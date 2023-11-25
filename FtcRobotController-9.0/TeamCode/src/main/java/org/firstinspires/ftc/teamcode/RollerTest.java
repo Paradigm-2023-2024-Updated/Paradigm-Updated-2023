@@ -19,8 +19,8 @@ public class RollerTest extends OpMode {
     @Override
     public void loop() {
         // Check if button 'A' is pressed
-        //motor.setPower(-(gamepad1.left_stick_y));
-        motor.setPower(-1);
+        motor.setPower(-(gamepad1.left_stick_y));
+        //motor.setPower(-1);
 
 
         telemetry.addData("Button A Pressed", gamepad1.a);

@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.vision.VisionPortal;
@@ -23,11 +25,19 @@ public class AprilTagContourCombo extends LinearOpMode {
     private double centerX = -1; // Initialize to -1 if no valid contour is found
     private double centerY = -1; // Initialize to -1 if no valid contour is found
 
-
+    DcMotor LFMotor, RBMotor, RFMotor, LBMotor;
     private OpenCvCamera webcam;
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        LFMotor = hardwareMap.dcMotor.get("LFMotor");
+        RBMotor = hardwareMap.dcMotor.get("RBMotor");
+        RFMotor = hardwareMap.dcMotor.get("RFMotor");
+        LBMotor = hardwareMap.dcMotor.get("LBMotor");
+
+        RFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        RBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         //Webcam Set Up
@@ -77,17 +87,22 @@ public class AprilTagContourCombo extends LinearOpMode {
 
 
 
-            if (centerX >= 305 && centerX <= 335) {
+            if (centerX >= 260 && centerX <= 380) {
                 telemetry.addData("Status", "Centered!");
                 break;
 
-            } else if (centerX < 305) {
+            } else if (centerX < 260) {
                 // Turn right
-                telemetry.addData("Status", "Turn Left");
+                telemetry.addData("Status", "Turn Right");
+                RFMotor.setPower(.5);
+                RBMotor.setPower(.5);
+
                 // Add code to turn the robot right
             } else if (centerX > 335) {
                 // Turn left
-                telemetry.addData("Status", "Turn Right");
+                telemetry.addData("Status", "Turn Left");
+                LFMotor.setPower(.5);
+                LBMotor.setPower(.5);
                 // Add code to turn the robot left
             }
 
@@ -98,8 +113,8 @@ public class AprilTagContourCombo extends LinearOpMode {
 
         }
 
-        //webcam.stopStreaming();
-        //webcam.closeCameraDevice();
+        webcam.stopStreaming();
+        webcam.closeCameraDevice();
     }
 
     class ColorDetectionPipelineFinal extends OpenCvPipeline {
