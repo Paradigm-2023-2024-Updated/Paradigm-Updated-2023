@@ -20,6 +20,7 @@ public class ColSensor extends OpMode {
     @Override
     public void loop(){
 
+        //the commented line below was written for the HSV conversion code that we ended up not using
         //Color.RGBToHSV(sensorColor.red() * 8, sensorColor.green() * 8, sensorColor.blue() * 8, sensorColor.alpha() * 8);
 
         //Display color values on phone
@@ -27,9 +28,13 @@ public class ColSensor extends OpMode {
         telemetry.addData("Green", sensorColor.green());
         telemetry.addData("Blue", sensorColor.blue());
         telemetry.update();
+
+
+
     }
 
-    // Function trying to convert RGB to HSV
+
+    // Function converting RGB to HSV - We ended up just using RGB values so this is an unused functin
     static void RGBtoHSV(double r, double g, double b){
 
         //divide RGB by 255 so instead of being from 0 - 255 they are 0 - 1
@@ -74,4 +79,7 @@ public class ColSensor extends OpMode {
         //compute value
         double v = cmax * 100;
         System.out.println("(" + h + " " + s + " " + v + ")");
-}}
+}
+
+
+}
