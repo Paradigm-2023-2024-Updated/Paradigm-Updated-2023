@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode;
+//REPLACE XCOORD WITH  METHOD CALL
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.*;
@@ -17,10 +20,17 @@ import java.util.List;
 @Autonomous(name = "Contour")
 public class RedObjectDetectionAutonomous extends LinearOpMode {
 
+    DcMotor LFMotor,LBMotor,RFMotor,RBMotor;
+
     private OpenCvCamera webcam;
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        LFMotor = hardwareMap.dcMotor.get("LFMotor");
+        RBMotor = hardwareMap.dcMotor.get("RBMotor");
+        RFMotor = hardwareMap.dcMotor.get("RFMotor");
+        LBMotor = hardwareMap.dcMotor.get("LBMotor");
 
         WebcamName webcamName = hardwareMap.get(WebcamName.class,"Webcam 1");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -30,6 +40,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             public void onOpened() {
 
                 webcam.startStreaming(640,360,OpenCvCameraRotation.UPRIGHT);
+                sleep(2000);
             }
 
             @Override
@@ -40,29 +51,91 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive()) {
-            telemetry.addData("Center X", ColorDetectionPipeline.centerX);
-            telemetry.addData("Center Y", ColorDetectionPipeline.centerY);
+        double xCoord = ColorDetectionPipeline.centerX;
 
-            if (ColorDetectionPipeline.centerX >= 305 && ColorDetectionPipeline.centerX <= 335) {
-                telemetry.addData("Status", "Centered!");
-            } else if (ColorDetectionPipeline.centerX < 305) {
-                // Turn Left
-                telemetry.addData("Status", "Turn Left");
-                // Add code to turn the robot right
-            } else if (ColorDetectionPipeline.centerX > 335) {
-                // Turn right
-                telemetry.addData("Status", "Turn Right");
-                // Add code to turn the robot left
+        telemetry.addData("Center X", xCoord);
+
+        if (xCoord >= 295 && xCoord <= 345) {
+            telemetry.addData("Status", "Centered!");
+        } else if (xCoord < 295 && xCoord>0) {
+            // Turn Left
+            telemetry.addData("Status", "Turn Right");
+
+            LFMotor.setTargetPosition(100);
+            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LFMotor.setPower(1);
+
+            RFMotor.setTargetPosition(100);
+            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            RFMotor.setPower(1);
+
+
+            LBMotor.setTargetPosition(100);
+            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LBMotor.setPower(1);
+
+
+            RBMotor.setTargetPosition(100);
+            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            RBMotor.setPower(1);
+
+            while (LFMotor.isBusy() && RFMotor.isBusy()&& RBMotor.isBusy()&& LBMotor.isBusy()) {
+                // Do nothing
+            }
+
+
+            LFMotor.setPower(0);
+            RFMotor.setPower(0);
+            LBMotor.setPower(0);
+            RBMotor.setPower(0);
+            RBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            LBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            LFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            RFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            // Add code to turn the robot right
+            } else if (xCoord > 345) {
+            // Turn right
+            telemetry.addData("Status", "Turn Left");
+            LFMotor.setTargetPosition(-100);
+            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LFMotor.setPower(1);
+
+            RFMotor.setTargetPosition(-100);
+            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            RFMotor.setPower(1);
+
+
+            LBMotor.setTargetPosition(-100);
+            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LBMotor.setPower(1);
+
+
+            RBMotor.setTargetPosition(-100);
+            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            RBMotor.setPower(1);
+
+            while (LFMotor.isBusy() && RFMotor.isBusy()&& RBMotor.isBusy()&& LBMotor.isBusy()) {
+                // Do nothing
+            }
+
+
+            LFMotor.setPower(0);
+            RFMotor.setPower(0);
+            LBMotor.setPower(0);
+            RBMotor.setPower(0);
+            RBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            LBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            LFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            RFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // Add code to turn the robot left
             }
 
             telemetry.update();
         }
 
-        webcam.stopStreaming();
-        webcam.closeCameraDevice();
+
     }
-}
 
 class ColorDetectionPipeline extends OpenCvPipeline {
 

@@ -1,12 +1,20 @@
 package org.firstinspires.ftc.teamcode.hardwareClasses;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+
 public class DriveTrain {
 
     DcMotor LFMotor, RBMotor, RFMotor, LBMotor;
+    BNO055IMU imu;
 
     public DriveTrain() {
     }
@@ -21,9 +29,27 @@ public class DriveTrain {
         //Reverse Necessary Motors (flip this)
         this.RFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         this.RBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        this.imu = hardwareMap.get(BNO055IMU.class,"imu");
+        this.imu.initialize(parameters);
     }
 
-    public void MecanumDrive(double LRPower, double FBPower, double PHIPower) {
+    public void MecanumDrive(double LRPower, double FBPower, double PHIPower, double angle) {
+
+        double temp = FBPower * Math.cos(Math.toRadians(angle))
+                + LRPower * Math.sin(Math.toRadians(angle));
+        LRPower = -FBPower * Math.sin(Math.toRadians(angle))
+                + LRPower * Math.cos(Math.toRadians(angle));
+        FBPower = temp;
+
         // convert to motor powers
         double LFPower = FBPower + LRPower + PHIPower;
         double LBPower = FBPower - LRPower + PHIPower;
@@ -46,6 +72,11 @@ public class DriveTrain {
         this.LBMotor.setPower(-LBPower);
         this.RFMotor.setPower(-RFPower);
         this.RBMotor.setPower(-RBPower);
+    }
+
+
+    public double getAngle() {
+        return -(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZXY, AngleUnit.RADIANS).firstAngle);
     }
 
 

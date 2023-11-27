@@ -65,44 +65,10 @@ public class MecanumCode extends OpMode {
         joystickY = -gamepad1.left_stick_y; //joystick y-value, inverted because controllers are weird
         pivot = (gamepad1.right_stick_x / 2.5); //pivot value, to be added or subtracted near the end
 
-        /*
-        magnitude = Range.clip(Math.hypot(joystickX, joystickY), 0, 1); //actual "length" of joystick, to be multiplied by sin value
-
-        //based on the x and y input measurements from the joystick, an angle is radians is calculated
-        angle = Math.atan2(joystickY, joystickX);
-
-        //unscaled power of each wheel; may exceed 1 or -1
-        LFPower = (Math.sin(angle + (Math.PI / 4)) * magnitude) + pivot;
-        RBPower = (Math.sin(angle + (Math.PI / 4)) * magnitude) - pivot;
-        RFPower = (Math.sin(angle - (Math.PI / 4)) * magnitude) - pivot;
-        LBPower = (Math.sin(angle - (Math.PI / 4)) * magnitude) + pivot;
-
-        //maximum of abs value of all the motor values; divide each value by max so nothing exceeds 1 or -1
-        if ((Math.abs(LFPower) > 1) || (Math.abs(RFPower) > 1) || (Math.abs(LBPower) > 1) || (Math.abs(RBPower) > 1)) {
-            max = Math.max(Math.max(Math.abs(LFPower), Math.abs(RBPower)), Math.max(Math.abs(RFPower), Math.abs(LBPower)));
-
-            LFPower = LFPower / max;
-            RBPower = RBPower / max;
-            RFPower = RFPower / max;
-            LBPower = LBPower / max;
-        }
-
-        LFMotor.setPower(-LFPower);//sets the motors power
-        LBMotor.setPower(-LBPower);
-        RFMotor.setPower(-RFPower);
-        RBMotor.setPower(-RBPower);
-         */
 
         // same this as all of the code above
-        robot.MecanumDrive(joystickX, joystickY, pivot);
+        robot.MecanumDrive(joystickX, joystickY, pivot,0);
 
-        /*
-        telemetry.addData("Left Front", LFPower);//adds data to telemitry
-        telemetry.addData("Right Front", RFPower);
-        telemetry.addData("Left Back", LBPower);
-        telemetry.addData("Right Back", RBPower);
-        telemetry.update();
-         */
 
     }
 
