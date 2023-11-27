@@ -16,7 +16,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 @TeleOp(name = "TeleopCode24")
 public class TeleopCode24 extends OpMode {
 
-    DcMotor LFM, RBM, RFM, LBM;
+    DcMotor LFM, RBM, RFM, LBM, roller, extend, elbow;
+    Servo paper, claw, wrist, push, lift;
     BNO055IMU imu;
     double angle;
     double joystickX;
@@ -25,6 +26,7 @@ public class TeleopCode24 extends OpMode {
     double magnitude;
     double pivot;
     double max;
+    double a;
     // indivitual motor movement or set hights. flip button? idk  reset button    grab    
 
 //_________________________________________________________________________________________
@@ -37,8 +39,18 @@ public class TeleopCode24 extends OpMode {
         RFM = hardwareMap.dcMotor.get("RFM");
         LBM = hardwareMap.dcMotor.get("LBM");
 
-        //RFM.setDirection(DcMotorSimple.Direction.REVERSE);
-        //RBM.setDirection(DcMotorSimple.Direction.REVERSE);
+        roller = hardwareMap.dcMotor.get("Roller");
+        extend = hardwareMap.dcMotor.get("Extend");
+        elbow = hardwareMap.dcMotor.get("Elbow");
+
+        paper = hardwareMap.servo.get("Paper");
+        claw = hardwareMap.servo.get("Claw");
+        wrist = hardwareMap.servo.get("Wrist");
+        push = hardwareMap.servo.get("Push");
+        lift = hardwareMap.servo.get("Lift");
+
+        paper.setPosition(1);
+
     }
 
 //___________________________________________________________________________________________
@@ -81,6 +93,60 @@ public class TeleopCode24 extends OpMode {
         telemetry.addData("Left Back", LBP);
         telemetry.addData("Right Back", RBP);
         telemetry.update();
+
+        if (gamepad1.y) {
+            paper.setPosition(1); // need to set servo pos ***************************************
+        }
+        if (gamepad2.left_stick_button) {
+            claw.setPosition(1);
+        }
+        if (gamepad2.right_stick_button) {
+            claw.setPosition(0);
+        }
+        if (gamepad2.left_bumper) {
+            a +=0.1;
+        }
+        if (gamepad2.right_bumper) {
+            a -=0.1;
+        }
+        if (a > 1) {
+            a = 1;
+        }
+        if (a < 0) {
+            a = 0;
+        }
+        wrist.setPosition(a);
+        elbow.setPower(gamepad2.left_stick_y);
+        extend.setPower(gamepad2.right_stick_y);
+        if (gamepad2.a) {
+            extend.setTargetPosition(0);
+            extend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            extend.setPower(0.5);
+            elbow.setTargetPosition(0);
+            elbow.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elbow.setPower(0.5);
+
+            while (extend.isBusy()) {
+                telemetry.addData("Status:","Encoders in Progress...");
+
+            }
+            while (elbow.isBusy()) {
+                telemetry.addData("Status:","Encoders in Progress...");
+
+            }
+
+            extend.setPower(0);
+            extend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            elbow.setPower(0);
+            elbow.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            wrist.setPosition(0);
+            claw.setPosition(0);
+        }
+        if (gamepad1.b) {
+            lift.setPosition(1);
+        }else {
+            lift.setPosition(0);
+        }
 
     }
 
