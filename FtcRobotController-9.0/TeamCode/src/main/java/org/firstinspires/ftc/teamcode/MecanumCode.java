@@ -40,18 +40,6 @@ public class MecanumCode extends OpMode {
     public void init() {
 
         robot.init(hardwareMap);
-
-        /*
-        //GamePad 1 Motor Setup
-        LFMotor = hardwareMap.dcMotor.get("LFMotor");
-        RBMotor = hardwareMap.dcMotor.get("RBMotor");
-        RFMotor = hardwareMap.dcMotor.get("RFMotor");
-        LBMotor = hardwareMap.dcMotor.get("LBMotor");
-
-        //Reverse Necessary Motors
-        RFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        RBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-         */
     }
 
 //___________________________________________________________________________________________
