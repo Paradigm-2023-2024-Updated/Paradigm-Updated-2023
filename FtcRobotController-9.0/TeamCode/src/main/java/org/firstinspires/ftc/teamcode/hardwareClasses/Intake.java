@@ -1,4 +1,46 @@
 package org.firstinspires.ftc.teamcode.hardwareClasses;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 public class Intake {
+
+    DcMotor roller;
+    private boolean isMotorOn = false;
+
+    public Intake(){
+
+    }
+
+    public void init(HardwareMap hardwareMap) {
+
+        this.roller = hardwareMap.dcMotor.get("roller");
+
+    }
+
+    public void spinRoller(){
+            // Check if the button is pressed
+            if (gamepad1.dpad_left) {
+                // Button is pressed
+                if (this.isMotorOn) {
+                    // Stop the motor if it's currently spinning
+                    motor.setPower(0);
+                    isMotorOn = false;
+                } else {
+                    // Start the motor if it's currently stopped
+                    motor.setPower(1.0); // You can adjust the power level as needed
+                    isMotorOn = true;
+                }
+
+                // Wait for the button to be released to avoid multiple toggles
+                while (button.getState() && opModeIsActive()) {
+                    // Wait for the button to be released
+                    idle();
+                }
+            }
+        }
+
+
 }
