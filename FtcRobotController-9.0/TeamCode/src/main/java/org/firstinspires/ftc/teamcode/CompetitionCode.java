@@ -46,7 +46,6 @@ public class CompetitionCode extends OpMode {
     DcMotor turnTable;
 
 
-
 //_________________________________________________________________________________________
 
     @Override
@@ -86,7 +85,7 @@ public class CompetitionCode extends OpMode {
         pivot = (gamepad1.right_stick_x / 2.5); //pivot value, to be added or subtracted near the end
         angle = (robot.getAngle());
 
-        robot.MecanumDrive(joystickX, joystickY, pivot,angle);
+        robot.MecanumDrive(joystickX, joystickY, pivot, angle);
 
         intake.spinRoller();
 
@@ -116,10 +115,5 @@ public class CompetitionCode extends OpMode {
         //AndyMark Motor for linear slide (1120 revolutions/min)
 
 
-
-
-
-
-
-
+    }
 }
