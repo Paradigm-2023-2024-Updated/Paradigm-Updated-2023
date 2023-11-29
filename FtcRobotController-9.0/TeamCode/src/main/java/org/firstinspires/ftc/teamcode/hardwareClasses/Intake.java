@@ -26,19 +26,14 @@ public class Intake {
                 // Button is pressed
                 if (this.isMotorOn) {
                     // Stop the motor if it's currently spinning
-                    motor.setPower(0);
+                    this.roller.setPower(0);
                     isMotorOn = false;
                 } else {
                     // Start the motor if it's currently stopped
-                    motor.setPower(1.0); // You can adjust the power level as needed
+                    this.roller.setPower(1.0); // You can adjust the power level as needed
                     isMotorOn = true;
                 }
 
-                // Wait for the button to be released to avoid multiple toggles
-                while (button.getState() && opModeIsActive()) {
-                    // Wait for the button to be released
-                    idle();
-                }
             }
         }
 

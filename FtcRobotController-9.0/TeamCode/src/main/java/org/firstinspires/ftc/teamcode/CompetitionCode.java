@@ -59,6 +59,10 @@ public class CompetitionCode extends OpMode {
 
         launcher.init(hardwareMap);
 
+        intake.init(hardwareMap);
+
+        arm.init(hardwareMap);
+
         //GamePad 2 Motor and Servo Setup
         linearSlide = hardwareMap.dcMotor.get("linearSlide");
         turnTable = hardwareMap.dcMotor.get("turnTable");
@@ -84,18 +88,15 @@ public class CompetitionCode extends OpMode {
 
         robot.MecanumDrive(joystickX, joystickY, pivot,angle);
 
+        intake.spinRoller();
 
+        arm.rotateArm();
+
+        arm.extendActuator();
         //----------------
 
-        //Claw
-        /*if (gamepad1.a) {
-            claw.setPosition(1);
-        } else {
-            claw.setPosition(0.3);
-        }
-        */
-
         //Turn Table Centralization
+        /*
         if (gamepad1.x) {
 
             turnTable.setTargetPosition(0);
@@ -110,93 +111,10 @@ public class CompetitionCode extends OpMode {
             turnTable.setPower(0);
             turnTable.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        }
-
-
-//__________________________________________________________________________________________________
-        //GamePad 2
-
-        //----------------
-
-        //Linear Slide
-        linearSlide.setPower(-(gamepad2.left_stick_y));
-
-        //----------------
-
-        //Turn Table
-        turnTable.setPower((gamepad2.right_stick_x) / 3);
-
+        }*/
         //----------------
         //AndyMark Motor for linear slide (1120 revolutions/min)
 
-
-        //Linear Slide Height 0
-        if (gamepad2.x) {
-
-            linearSlide.setTargetPosition(0);
-            linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            linearSlide.setPower(0.5);
-
-            while (linearSlide.isBusy()) {
-                telemetry.addData("Status:","Encoders in Progress...");
-
-            }
-
-            linearSlide.setPower(0);
-            linearSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-
-        //Linear Slide Height 1
-        if (gamepad2.a) {
-
-            linearSlide.setTargetPosition(30);
-            linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            linearSlide.setPower(0.5);
-
-            while (linearSlide.isBusy()) {
-                telemetry.addData("Status:","Encoders in Progress...");
-
-            }
-
-            linearSlide.setPower(0);
-            linearSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-
-
-        //Linear Slide Height 2
-        if (gamepad2.b) {
-
-            linearSlide.setTargetPosition(50);
-            linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            linearSlide.setPower(0.5);
-
-            while (linearSlide.isBusy()) {
-
-                telemetry.addData("Status:","Encoders in Progress...");
-
-            }
-
-            linearSlide.setPower(0);
-            linearSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-
-
-        //Linear Slide Height 3
-        if (gamepad2.y) {
-
-            linearSlide.setTargetPosition(70);
-            linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            linearSlide.setPower(0.5);
-
-            while (linearSlide.isBusy()) {
-                telemetry.addData("Status:","Encoders in Progress...");
-
-            }
-
-            linearSlide.setPower(0);
-            linearSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-    }
 
 
 
