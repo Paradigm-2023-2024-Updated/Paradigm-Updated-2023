@@ -2,6 +2,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import static android.os.SystemClock.sleep;
 import static com.qualcomm.hardware.bosch.BNO055IMU.SensorMode.IMU;
 
 
@@ -56,14 +57,11 @@ public class CompetitionCode extends OpMode {
         //GamePad 1 Motor Setup
         claw = hardwareMap.servo.get("claw");
 
+        launcher.init(hardwareMap);
+
         //GamePad 2 Motor and Servo Setup
         linearSlide = hardwareMap.dcMotor.get("linearSlide");
         turnTable = hardwareMap.dcMotor.get("turnTable");
-
-        //Reverse Necessary Motors
-
-        //Imu Setup
-
 
         //Encoder Setup
         linearSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

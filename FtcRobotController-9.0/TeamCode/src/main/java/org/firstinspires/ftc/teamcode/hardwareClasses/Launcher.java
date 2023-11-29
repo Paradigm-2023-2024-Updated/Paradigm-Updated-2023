@@ -28,6 +28,11 @@ public class Launcher {
 
         if (gamepad1.a) {
             this.launcher.setPosition(1);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             this.launcher.setPosition(0);
         }
 
