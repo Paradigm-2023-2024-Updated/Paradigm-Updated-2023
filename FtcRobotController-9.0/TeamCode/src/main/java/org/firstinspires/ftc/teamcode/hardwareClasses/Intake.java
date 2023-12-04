@@ -20,9 +20,9 @@ public class Intake {
 
     }
 
-    public void spinRoller(){
-            // Check if the button is pressed
-            if (gamepad1.dpad_left) {
+    public void spinRoller() {
+        // Check if the button is pressed
+            if (gamepad1.b) {
                 // Button is pressed
                 if (this.isMotorOn) {
                     // Stop the motor if it's currently spinning
@@ -35,7 +35,10 @@ public class Intake {
                 }
 
             }
+
         }
 
+    }
 
-}
+
+

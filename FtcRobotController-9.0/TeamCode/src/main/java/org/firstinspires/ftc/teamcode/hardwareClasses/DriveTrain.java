@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.hardwareClasses;
-
+import org.firstinspires.ftc.teamcode.hardware.IMUWrapper;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 public class DriveTrain {
 
     DcMotor LFMotor, RBMotor, RFMotor, LBMotor;
+
     BNO055IMU imu;
 
     public DriveTrain() {
@@ -26,58 +27,54 @@ public class DriveTrain {
         this.RFMotor = hardwareMap.dcMotor.get("RFMotor");
         this.LBMotor = hardwareMap.dcMotor.get("LBMotor");
 
-        //Reverse Necessary Motors (flip this)
-        this.RFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.RBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
+        // Set up the parameters for the IMU
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // You may need to calibrate and save calibration data
         parameters.loggingEnabled = true;
         parameters.loggingTag = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
-        this.imu = hardwareMap.get(BNO055IMU.class,"imu");
-        this.imu.initialize(parameters);
+        // Initialize the IMU
+        imu.initialize(parameters);
+
+        //Reverse Necessary Motors (flip this)
+        this.LFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.LBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
     }
 
-    public void MecanumDrive(double LRPower, double FBPower, double PHIPower, double angle) {
+    public void driveFieldCentric(double x, double y, double rotation) {
+        // Get robot heading in radians
+        double heading = Math.toRadians(imu.getAngularOrientation().firstAngle);
 
-        double temp = FBPower * Math.cos(Math.toRadians(angle))
-                + LRPower * Math.sin(Math.toRadians(angle));
-        LRPower = -FBPower * Math.sin(Math.toRadians(angle))
-                + LRPower * Math.cos(Math.toRadians(angle));
-        FBPower = temp;
+        // Calculate the new x and y components after applying rotation
+        double rotatedX = x * Math.cos(heading) - y * Math.sin(heading);
+        double rotatedY = x * Math.sin(heading) + y * Math.cos(heading);
 
-        // convert to motor powers
-        double LFPower = FBPower + LRPower + PHIPower;
-        double LBPower = FBPower - LRPower + PHIPower;
-        double RFPower = FBPower - LRPower - PHIPower;
-        double RBPower = FBPower + LRPower - PHIPower;
+        // Calculate motor powers
+        double LFPower = Range.clip(rotatedY + rotatedX + rotation, -1.0, 1.0);
+        double RFPower = Range.clip(rotatedY - rotatedX - rotation, -1.0, 1.0);
+        double LRPower = Range.clip(rotatedY - rotatedX + rotation, -1.0, 1.0);
+        double RRPower = Range.clip(rotatedY + rotatedX - rotation, -1.0, 1.0);
 
-        // clip the motor powers/scale/wahterver
-        //maximum of abs value of all the motor values; divide each value by max so nothing exceeds 1 or -1
-        if ((Math.abs(LFPower) > 1) || (Math.abs(RFPower) > 1) || (Math.abs(LBPower) > 1) || (Math.abs(RBPower) > 1)) {
-            double max = Math.max(Math.max(Math.abs(LFPower), Math.abs(RBPower)), Math.max(Math.abs(RFPower), Math.abs(LBPower)));
-
-            LFPower = LFPower / max;
-            RBPower = RBPower / max;
-            RFPower = RFPower / max;
-            LBPower = LBPower / max;
-        }
-
-        // set powers ( configure motor directions in init)
-        this.LFMotor.setPower(-LFPower);//sets the motors power
-        this.LBMotor.setPower(-LBPower);
-        this.RFMotor.setPower(-RFPower);
-        this.RBMotor.setPower(-RBPower);
+        // Set motor powers
+        this.LFMotor.setPower(LFPower);
+        this.RFMotor.setPower(RFPower);
+        this.LBMotor.setPower(LRPower);
+        this.RBMotor.setPower(RRPower);
     }
 
 
-    public double getAngle() {
+    /*public double getAngle() {
         return -(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZXY, AngleUnit.RADIANS).firstAngle);
     }
+    /*
+     */
 
 
 }

@@ -55,7 +55,7 @@ public class MecanumCode extends OpMode {
 
 
         // same this as all of the code above
-        robot.MecanumDrive(joystickX, joystickY, pivot,0);
+        robot.driveFieldCentric(joystickX, joystickY, pivot);
 
 
     }
