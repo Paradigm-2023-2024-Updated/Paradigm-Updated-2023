@@ -51,13 +51,13 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
         waitForStart();
 
-        double xCoord = ColorDetectionPipeline.centerX;
+        int position = ColorDetectionPipeline.position;
 
-        telemetry.addData("Center X", xCoord);
+        telemetry.addData("Center X", position);
 
-        if (xCoord >= 295 && xCoord <= 345) {
+        if (position == 0) {
             telemetry.addData("Status", "Centered!");
-        } else if (xCoord < 295 && xCoord>0) {
+        } else if (position == -1) {
             // Turn Left
             telemetry.addData("Status", "Turn Right");
 
@@ -93,7 +93,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             LFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             RFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             // Add code to turn the robot right
-            } else if (xCoord > 345) {
+            } else if (position == 1) {
             // Turn right
             telemetry.addData("Status", "Turn Left");
             LFMotor.setTargetPosition(-100);
@@ -137,7 +137,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
     }
 
-class ColorDetectionPipeline extends OpenCvPipeline {
+/*class ColorDetectionPipeline extends OpenCvPipeline {
 
     public static double centerX;
     public static double centerY;
@@ -191,6 +191,80 @@ class ColorDetectionPipeline extends OpenCvPipeline {
         hierarchy.release();
 
         // Convert back to RGB color space for display
+        Imgproc.cvtColor(input, input, Imgproc.COLOR_HSV2RGB);
+
+        return input;
+    }
+}
+ */
+class ColorDetectionPipeline extends OpenCvPipeline {
+
+    public static double centerX;
+    public static double centerY;
+
+    public static int position = 0;
+
+    @Override
+    public Mat processFrame(Mat input) {
+        Imgproc.GaussianBlur(input, input, new Size(9, 9), 0);
+        Imgproc.cvtColor(input, input, Imgproc.COLOR_RGB2HSV);
+
+        Scalar lowerRed1 = new Scalar(0, 100, 100);
+        Scalar upperRed1 = new Scalar(10, 255, 255);
+
+        Scalar lowerRed2 = new Scalar(120, 100, 100);
+        Scalar upperRed2 = new Scalar(180, 255, 255);
+
+        Mat mask1 = new Mat();
+        Core.inRange(input, lowerRed1, upperRed1, mask1);
+
+        Mat mask2 = new Mat();
+        Core.inRange(input, lowerRed2, upperRed2, mask2);
+
+        Mat mask = new Mat();
+        Core.bitwise_or(mask1, mask2, mask);
+
+        List<MatOfPoint> contours = new ArrayList<>();
+        Mat hierarchy = new Mat();
+        Imgproc.findContours(mask, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.drawContours(input, contours, -1, new Scalar(0, 255, 0), 2);
+
+
+
+        if (!contours.isEmpty()) {
+            for (MatOfPoint contour : contours) {
+                double contourArea = Imgproc.contourArea(contour);
+                if (contourArea >= 300) {
+                    MatOfPoint largestContour = Collections.max(contours, Comparator.comparing(Imgproc::contourArea));
+                    Moments moments = Imgproc.moments(largestContour);
+                    centerX = moments.m10 / moments.m00;
+
+                    // Calculate the position based on the center point with a smaller buffer
+                    double imageCenterX = input.width() / 2.0;
+                    double positionError = centerX - imageCenterX;
+                    double buffer = 5.0; // Smaller buffer size
+
+                    if (positionError < -buffer) {
+                        position = -1; // Contour center is to the left
+                    } else if (positionError > buffer) {
+                        position = 1; // Contour center is to the right
+                    } else {
+                        position = 0; // Contour center is within the buffer, consider it centered
+                    }
+
+                    // Draw a circle at the center point
+                    Imgproc.circle(input, new Point(centerX, centerY), 10, new Scalar(255, 0, 0), -1);
+                } else {
+                    position = 2; // No significant contour found
+                }
+            }
+        }
+
+        mask1.release();
+        mask2.release();
+        mask.release();
+        hierarchy.release();
+
         Imgproc.cvtColor(input, input, Imgproc.COLOR_HSV2RGB);
 
         return input;
