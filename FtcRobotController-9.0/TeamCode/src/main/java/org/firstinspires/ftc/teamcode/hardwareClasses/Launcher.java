@@ -26,7 +26,7 @@ public class Launcher {
 
     public void launchAirplane() {
 
-        if (gamepad1.a) {
+
             this.launcher.setPosition(1);
             try {
                 Thread.sleep(2000);
@@ -34,7 +34,6 @@ public class Launcher {
                 throw new RuntimeException(e);
             }
             this.launcher.setPosition(0);
-        }
 
     }
 

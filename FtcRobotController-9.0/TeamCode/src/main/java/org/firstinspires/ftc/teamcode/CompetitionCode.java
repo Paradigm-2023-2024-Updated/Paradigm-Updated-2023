@@ -71,11 +71,23 @@ public class CompetitionCode extends OpMode {
 
         robot.driveFieldCentric(joystickX, joystickY, pivot);
 
-        intake.spinRoller();
+        if (gamepad1.b){
+            intake.spinRoller();
+        }
+
 
         arm.rotateArm();
 
-        arm.extendActuator();
+        if (gamepad1.a){
+            launcher.launchAirplane();
+        }
+
+        if (gamepad1.left_bumper) {
+            arm.extendActuator(0.7);
+        } else if (gamepad1.right_bumper){
+            arm.retractActuator(0.7);
+        }
+
 
         launcher.launchAirplane();
         //----------------

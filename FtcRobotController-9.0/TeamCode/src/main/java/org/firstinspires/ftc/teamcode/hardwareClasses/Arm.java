@@ -21,16 +21,14 @@ public class Arm {
     }
 
     public void rotateArm(){
-
         this.arm.setPower(gamepad1.right_stick_y);
     }
 
-    public void extendActuator(){
-        if (gamepad1.left_bumper) {
-            this.linearActuator.setPower(-0.7);
-        } else if (gamepad1.right_bumper) {
-            this.linearActuator.setPower(0.7);
-        }
+    public void extendActuator(double power){
+        this.linearActuator.setPower(power);
+    }
 
+    public void retractActuator(double power){
+        this.linearActuator.setPower(-power);
     }
 }
