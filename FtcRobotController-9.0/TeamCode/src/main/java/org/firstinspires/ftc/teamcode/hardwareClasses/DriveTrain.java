@@ -14,7 +14,7 @@ public class DriveTrain {
 
     DcMotor LFMotor, RBMotor, RFMotor, LBMotor;
 
-    BNO055IMU imu;
+   // BNO055IMU imu;
 
     public DriveTrain() {
     }
@@ -26,7 +26,7 @@ public class DriveTrain {
         this.RFMotor = hardwareMap.dcMotor.get("RFMotor");
         this.LBMotor = hardwareMap.dcMotor.get("LBMotor");
 
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
+       /* imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         // Set up the parameters for the IMU
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -38,7 +38,7 @@ public class DriveTrain {
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
         // Initialize the IMU
-        imu.initialize(parameters);
+        imu.initialize(parameters); */
 
         //Reverse Necessary Motors (flip this)
         this.LFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -47,25 +47,25 @@ public class DriveTrain {
 
     }
 
-    public void driveFieldCentric(double x, double y, double rotation) {
+    public void driveFieldCentric(double LRPower, double FBPower, double rotation) {
         // Get robot heading in radians
-        double heading = Math.toRadians(imu.getAngularOrientation().firstAngle);
+        //double heading = Math.toRadians(imu.getAngularOrientation().firstAngle);
 
         // Calculate the new x and y components after applying rotation
-        double rotatedX = x * Math.cos(heading) - y * Math.sin(heading);
-        double rotatedY = x * Math.sin(heading) + y * Math.cos(heading);
+      //  double rotatedX = x * Math.cos(heading) - y * Math.sin(heading);
+        //double rotatedY = x * Math.sin(heading) + y * Math.cos(heading);
 
         // Calculate motor powers
-        double LFPower = Range.clip(rotatedY + rotatedX + rotation, -1.0, 1.0);
-        double RFPower = Range.clip(rotatedY - rotatedX - rotation, -1.0, 1.0);
-        double LRPower = Range.clip(rotatedY - rotatedX + rotation, -1.0, 1.0);
-        double RRPower = Range.clip(rotatedY + rotatedX - rotation, -1.0, 1.0);
+        double LFPower = Range.clip(LRPower + FBPower + rotation, -1.0, 1.0);
+        double RFPower = Range.clip(LRPower - FBPower - rotation, -1.0, 1.0);
+        double LBPower = Range.clip(LRPower - FBPower + rotation, -1.0, 1.0);
+        double RBPower = Range.clip(LRPower + FBPower - rotation, -1.0, 1.0);
 
         // Set motor powers
         this.LFMotor.setPower(LFPower);
         this.RFMotor.setPower(RFPower);
-        this.LBMotor.setPower(LRPower);
-        this.RBMotor.setPower(RRPower);
+        this.LBMotor.setPower(LBPower);
+        this.RBMotor.setPower(RBPower);
     }
 
 
