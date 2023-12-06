@@ -9,7 +9,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Arm {
 
     DcMotor arm, linearActuator;
+
     Servo wrist;
+
+
+
 
     public Arm(){
 
@@ -20,7 +24,11 @@ public class Arm {
         this.arm = hardwareMap.dcMotor.get("arm");
         this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.linearActuator = hardwareMap.dcMotor.get("linearActuator");
+
         this.wrist = hardwareMap.servo.get("wrist");
+
+        this.wrist = hardwareMap.servo.get("");
+
 
     }
 
@@ -47,4 +55,6 @@ public class Arm {
     public void release(){
         this.wrist.setPosition(0);
     }
+
+
 }

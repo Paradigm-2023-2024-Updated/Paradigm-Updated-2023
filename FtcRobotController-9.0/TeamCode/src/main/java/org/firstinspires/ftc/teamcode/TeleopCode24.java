@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;                               //Importing of the files
+//import com.qualcomm.hardware.bosch.BNO055IMU;                               //Importing of the files
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -18,7 +18,7 @@ public class TeleopCode24 extends OpMode {
 
     DcMotor LFM, RBM, RFM, LBM, roller, extend, elbow;
     Servo paper, claw, wrist, push, lift;
-    BNO055IMU imu;
+    //BNO055IMU imu;
     double angle;
     double joystickX;
     double joystickY;
@@ -34,12 +34,12 @@ public class TeleopCode24 extends OpMode {
     @Override
     public void init() {
 
-        LFM = hardwareMap.dcMotor.get("LFM");
-        RBM = hardwareMap.dcMotor.get("RBM");
-        RFM = hardwareMap.dcMotor.get("RFM");
-        LBM = hardwareMap.dcMotor.get("LBM");
+        LFM = hardwareMap.dcMotor.get("LFMotor");
+        RBM = hardwareMap.dcMotor.get("RBMotor");
+        RFM = hardwareMap.dcMotor.get("RFMotor");
+        LBM = hardwareMap.dcMotor.get("LBMotor");
 
-        roller = hardwareMap.dcMotor.get("Roller");
+        /*roller = hardwareMap.dcMotor.get("Roller");
         extend = hardwareMap.dcMotor.get("Extend");
         elbow = hardwareMap.dcMotor.get("Elbow");
 
@@ -51,6 +51,8 @@ public class TeleopCode24 extends OpMode {
 
         paper.setPosition(1);
 
+
+         */
     }
 
 //___________________________________________________________________________________________
@@ -65,7 +67,8 @@ public class TeleopCode24 extends OpMode {
         magnitude = Range.clip(Math.hypot(joystickX, joystickY), 0, 1); //actual "length" of joystick, to be multiplied by sin value
 
         //based on the x and y input measurements from the joystick, an angle is radians is calculated
-        angle = (getAngle() - Math.atan2(joystickY, joystickX));
+        angle = (Math.atan2(joystickY, joystickX));
+        //angle = (getAngle() - Math.atan2(joystickY, joystickX));
 
         //unscaled power of each wheel; may exceed 1 or -1
         LFP = (Math.sin(angle + (Math.PI / 4)) * magnitude) + pivot;
@@ -94,7 +97,7 @@ public class TeleopCode24 extends OpMode {
         telemetry.addData("Right Back", RBP);
         telemetry.update();
 
-        if (gamepad1.y) {
+        /*if (gamepad1.y) {
             paper.setPosition(1); // need to set servo pos ***************************************
         }
         if (gamepad2.left_stick_button) {
@@ -148,11 +151,15 @@ public class TeleopCode24 extends OpMode {
             lift.setPosition(0);
         }
 
+         */
+
     }
 
-    public double getAngle() {
+    /*public double getAngle() {
         return -(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZXY, AngleUnit.RADIANS).firstAngle);
     }
+
+     */
 
 
 }
