@@ -97,6 +97,14 @@ public class CompetitionCode extends OpMode {
             launcher.launchAirplane();
         }
 
+        if (gamepad2.right_bumper){
+            arm.grab();
+        }
+
+        if (gamepad2.left_bumper){
+            arm.release();
+        }
+
         //----------------
 
         //Turn Table Centralization
