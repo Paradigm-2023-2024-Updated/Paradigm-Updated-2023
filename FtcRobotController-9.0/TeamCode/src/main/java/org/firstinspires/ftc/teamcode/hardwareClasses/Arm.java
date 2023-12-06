@@ -20,8 +20,8 @@ public class Arm {
 
     }
 
-    public void rotateArm(){
-        this.arm.setPower(gamepad1.right_stick_y);
+    public void rotateArm(double power){
+        this.arm.setPower(power);
     }
 
     public void extendActuator(double power){
@@ -30,5 +30,9 @@ public class Arm {
 
     public void retractActuator(double power){
         this.linearActuator.setPower(-power);
+    }
+
+    public void stopActuator(){
+        this.linearActuator.setPower(0);
     }
 }

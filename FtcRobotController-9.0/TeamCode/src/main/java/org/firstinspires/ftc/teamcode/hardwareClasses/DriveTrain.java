@@ -57,15 +57,15 @@ public class DriveTrain {
 
         // Calculate motor powers
         double LFPower = Range.clip(LRPower + FBPower + rotation, -1.0, 1.0);
-        double RFPower = Range.clip(LRPower - FBPower - rotation, -1.0, 1.0);
-        double LBPower = Range.clip(LRPower - FBPower + rotation, -1.0, 1.0);
-        double RBPower = Range.clip(LRPower + FBPower - rotation, -1.0, 1.0);
+        double RFPower = Range.clip(LRPower - FBPower + rotation, -1.0, 1.0);
+        double LBPower = Range.clip(LRPower + FBPower - rotation, -1.0, 1.0);
+        double RBPower = Range.clip(LRPower - FBPower - rotation, -1.0, 1.0);
 
         // Set motor powers
-        this.LFMotor.setPower(LFPower);
-        this.RFMotor.setPower(RFPower);
-        this.LBMotor.setPower(LBPower);
-        this.RBMotor.setPower(RBPower);
+        this.LFMotor.setPower(0.6*LFPower);
+        this.RFMotor.setPower(.6*RFPower);
+        this.LBMotor.setPower(.6*LBPower);
+        this.RBMotor.setPower(.6*RBPower);
     }
 
 
