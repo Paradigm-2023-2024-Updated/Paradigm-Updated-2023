@@ -10,7 +10,7 @@ public class Arm {
 
     DcMotor arm, linearActuator;
 
-    Servo wrist;
+    Servo wrist,elbow;
 
 
 
@@ -26,34 +26,39 @@ public class Arm {
         this.linearActuator = hardwareMap.dcMotor.get("linearActuator");
 
         this.wrist = hardwareMap.servo.get("wrist");
+        this.wrist = hardwareMap.servo.get("elbow");
 
-        this.wrist = hardwareMap.servo.get("");
 
 
     }
 
     public void rotateArm(double power){
-        this.arm.setPower(power);
+        this.arm.setPower(.6*power);
     }
 
-    public void extendActuator(double power){
-        this.linearActuator.setPower(power);
+    public void rotateActuator(double power){
+        this.linearActuator.setPower(0.9*power);
     }
 
-    public void retractActuator(double power){
-        this.linearActuator.setPower(-power);
-    }
-
-    public void stopActuator(){
-        this.linearActuator.setPower(0);
-    }
 
     public void grab(){
         this.wrist.setPosition(1);
     }
 
     public void release(){
-        this.wrist.setPosition(0);
+        this.wrist.setPosition(0.5);
+    }
+
+    public void elbowUp(){
+        this.elbow.setPosition(1);
+    }
+
+    public void elbowDown(){
+        this.elbow.setPosition(-1);
+    }
+
+    public void elbowZero(){
+        this.elbow.setPosition(0);
     }
 
 

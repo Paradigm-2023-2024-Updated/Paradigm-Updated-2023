@@ -69,33 +69,21 @@ public class CompetitionCode extends OpMode {
         pivot = (gamepad1.right_stick_x / 2.5); //pivot value, to be added or subtracted near the end
         //angle = (robot.getAngle());
 
+
+        //Gamepad 1
         robot.driveFieldCentric(joystickX, joystickY, pivot);
+        if (gamepad1.b){
+            launcher.launchAirplane();
+        }
 
         if (gamepad1.b){
             intake.spinRoller();
         }
 
+        //Gamepad 2
+        arm.rotateArm(gamepad2.left_stick_y);
+        arm.rotateActuator(gamepad2.right_stick_y);
 
-        arm.rotateArm(gamepad2.right_stick_y);
-
-        if (gamepad1.a){
-            launcher.launchAirplane();
-        }
-
-        if (gamepad1.left_bumper) {
-            arm.extendActuator(0.9);
-        } else{
-            arm.stopActuator();
-        }
-        if (gamepad1.right_bumper){
-            arm.retractActuator(0.9);
-        }else{
-            arm.stopActuator();
-        }
-
-        if (gamepad1.a){
-            launcher.launchAirplane();
-        }
 
         if (gamepad2.right_bumper){
             arm.grab();
@@ -103,6 +91,18 @@ public class CompetitionCode extends OpMode {
 
         if (gamepad2.left_bumper){
             arm.release();
+        }
+
+        if (gamepad2.y){
+            arm.elbowUp();
+        } else{
+            arm.elbowZero();
+        }
+
+        if (gamepad2.a){
+            arm.elbowDown();
+        } else{
+            arm.elbowZero();
         }
 
         //----------------
