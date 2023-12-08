@@ -26,15 +26,10 @@ public class Launcher {
 
     public void launchAirplane() {
 
-
-            this.launcher.setPosition(1);
+        this.launcher.setPosition(1);
 
     }
 
-    public void resetAirplane(){
-
-        this.launcher.setPosition(0);
-    }
 
 }
 

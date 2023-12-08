@@ -54,7 +54,9 @@ public class Arm {
         this.elbow.setPosition(up);
     }
 
-    public void elbowDown(double down){this.elbow.setPosition(down);}
+    public void elbowDown(double down){
+        this.elbow.setPosition(down);
+    }
 
 
 }

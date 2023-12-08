@@ -49,7 +49,7 @@ public class CompetitionCode extends OpMode {
 
         arm.init(hardwareMap);
 
-        pos = 0;
+        pos = 0.5;
 
         //GamePad 2 Motor and Servo Setup
 
@@ -76,20 +76,14 @@ public class CompetitionCode extends OpMode {
 
         //Gamepad 1
         robot.driveFieldCentric(joystickX, joystickY, pivot);
-        if (gamepad2.b){
-            launcher.launchAirplane();
-        }
         if (gamepad1.b) {
             intake.spinRoller();
-        }
-        if (gamepad1.b){
+        }else {
             intake.stopRoller();
         }
 
         if (gamepad1.a){
             launcher.launchAirplane();
-        } else{
-            launcher.resetAirplane();
         }
 
         //Gamepad 2
@@ -113,12 +107,14 @@ public class CompetitionCode extends OpMode {
             pos -= 0.001;
             arm.elbowDown(pos);
         }
-        if (pos < -1){
+        /*if (pos < -1){
             pos = -1;
         }
         if (pos > 1){
             pos = 1;
         }
+
+         */
         //----------------
 
         //Turn Table Centralization
