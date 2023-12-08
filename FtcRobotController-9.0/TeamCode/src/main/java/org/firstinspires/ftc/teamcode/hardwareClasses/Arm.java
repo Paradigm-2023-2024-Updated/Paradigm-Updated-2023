@@ -26,14 +26,15 @@ public class Arm {
         this.linearActuator = hardwareMap.dcMotor.get("linearActuator");
 
         this.wrist = hardwareMap.servo.get("wrist");
-        this.wrist = hardwareMap.servo.get("elbow");
+        this.elbow = hardwareMap.servo.get("elbow");
+
 
 
 
     }
 
     public void rotateArm(double power){
-        this.arm.setPower(.6*power);
+        this.arm.setPower(.4*power);
     }
 
     public void rotateActuator(double power){
@@ -49,17 +50,11 @@ public class Arm {
         this.wrist.setPosition(0.5);
     }
 
-    public void elbowUp(){
-        this.elbow.setPosition(1);
+    public void elbowUp(double up){
+        this.elbow.setPosition(up);
     }
 
-    public void elbowDown(){
-        this.elbow.setPosition(-1);
-    }
-
-    public void elbowZero(){
-        this.elbow.setPosition(0);
-    }
+    public void elbowDown(double down){this.elbow.setPosition(down);}
 
 
 }

@@ -28,13 +28,12 @@ public class Launcher {
 
 
             this.launcher.setPosition(1);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            this.launcher.setPosition(0);
 
+    }
+
+    public void resetAirplane(){
+
+        this.launcher.setPosition(0);
     }
 
 }

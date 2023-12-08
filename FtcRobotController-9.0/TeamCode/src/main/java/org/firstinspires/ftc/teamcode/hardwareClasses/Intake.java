@@ -23,19 +23,15 @@ public class Intake {
     public void spinRoller() {
         // Check if the button is pressed
                 // Button is pressed
-                if (this.isMotorOn) {
-                    // Stop the motor if it's currently spinning
-                    this.roller.setPower(0);
-                    isMotorOn = false;
-                } else {
-                    // Start the motor if it's currently stopped
-                    this.roller.setPower(1.0); // You can adjust the power level as needed
-                    isMotorOn = true;
-
-
-            }
+        this.roller.setPower(-1);
 
         }
+    public void stopRoller() {
+        // Check if the button is pressed
+        // Button is presse
+        this.roller.setPower(0);
+
+    }
 
     }
 
