@@ -51,7 +51,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
         waitForStart();
 
-        int position = ColorDetectionPipeline.position;
+        double position = ColorDetectionPipeline.centerX;
 
         telemetry.addData("Center X", position);
 
@@ -137,7 +137,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
     }
 
-/*class ColorDetectionPipeline extends OpenCvPipeline {
+class ColorDetectionPipeline extends OpenCvPipeline {
 
     public static double centerX;
     public static double centerY;
@@ -196,8 +196,8 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         return input;
     }
 }
- */
-class ColorDetectionPipeline extends OpenCvPipeline {
+
+/*class ColorDetectionPipeline extends OpenCvPipeline {
 
     public static double centerX;
     public static double centerY;
@@ -268,5 +268,4 @@ class ColorDetectionPipeline extends OpenCvPipeline {
         Imgproc.cvtColor(input, input, Imgproc.COLOR_HSV2RGB);
 
         return input;
-    }
-}
+    }*/
