@@ -52,30 +52,32 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         waitForStart();
 
         double position = ColorDetectionPipeline.centerX;
+        double positionY = ColorDetectionPipeline.centerY;
 
         telemetry.addData("Center X", position);
+        telemetry.addData("Center Y",positionY);
 
-        if (position == 0) {
+        if (position > 270 && position < 330) {
             telemetry.addData("Status", "Centered!");
-        } else if (position == -1) {
+        } else if (position < 270) {
             // Turn Left
-            telemetry.addData("Status", "Turn Right");
+            telemetry.addData("Status", "Turn Left");
 
-            LFMotor.setTargetPosition(100);
+            LFMotor.setTargetPosition(200);
             LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LFMotor.setPower(1);
 
-            RFMotor.setTargetPosition(100);
+            RFMotor.setTargetPosition(200);
             RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             RFMotor.setPower(1);
 
 
-            LBMotor.setTargetPosition(100);
+            LBMotor.setTargetPosition(200);
             LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LBMotor.setPower(1);
 
 
-            RBMotor.setTargetPosition(100);
+            RBMotor.setTargetPosition(200);
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             RBMotor.setPower(1);
 
@@ -93,24 +95,24 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             LFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             RFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             // Add code to turn the robot right
-            } else if (position == 1) {
+            } else if (position > 330) {
             // Turn right
-            telemetry.addData("Status", "Turn Left");
-            LFMotor.setTargetPosition(-100);
+            telemetry.addData("Status", "Turn Right");
+            LFMotor.setTargetPosition(-200);
             LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LFMotor.setPower(1);
 
-            RFMotor.setTargetPosition(-100);
+            RFMotor.setTargetPosition(-200);
             RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             RFMotor.setPower(1);
 
 
-            LBMotor.setTargetPosition(-100);
+            LBMotor.setTargetPosition(-200);
             LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LBMotor.setPower(1);
 
 
-            RBMotor.setTargetPosition(-100);
+            RBMotor.setTargetPosition(-200);
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             RBMotor.setPower(1);
 
@@ -171,7 +173,7 @@ class ColorDetectionPipeline extends OpenCvPipeline {
         if (!contours.isEmpty()) {
             for (MatOfPoint contour : contours) {
                 double contourArea = Imgproc.contourArea(contour);
-                if (contourArea >= 300) {
+                if (contourArea >= 200) {
                     MatOfPoint largestContour = Collections.max(contours, Comparator.comparing(Imgproc::contourArea));
                     Moments moments = Imgproc.moments(largestContour);
                     centerX = moments.m10 / moments.m00;
