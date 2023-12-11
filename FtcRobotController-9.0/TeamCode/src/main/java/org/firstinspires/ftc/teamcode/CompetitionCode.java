@@ -76,6 +76,7 @@ public class CompetitionCode extends OpMode {
 
         //Gamepad 1
         robot.driveFieldCentric(joystickX, joystickY, pivot);
+
         if (gamepad1.b) {
             intake.spinRoller();
         }else {
@@ -85,6 +86,7 @@ public class CompetitionCode extends OpMode {
         if (gamepad1.a){
             launcher.launchAirplane();
         }
+
 
         //Gamepad 2
         arm.rotateArm(gamepad2.left_stick_y);
@@ -100,21 +102,23 @@ public class CompetitionCode extends OpMode {
         }
 
         if (gamepad2.y){
-            pos += 0.001;
+            pos -= 0.002;
             arm.elbowUp(pos);
         }
         if (gamepad2.a) {
-            pos -= 0.001;
+            pos += 0.002;
             arm.elbowDown(pos);
         }
-        /*if (pos < -1){
-            pos = -1;
+
+        telemetry.update();
+        if (pos < -0.5){
+            pos = -0.5;
         }
-        if (pos > 1){
-            pos = 1;
+        if (pos > 1.5){
+            pos = 1.5;
         }
 
-         */
+
         //----------------
 
         //Turn Table Centralization

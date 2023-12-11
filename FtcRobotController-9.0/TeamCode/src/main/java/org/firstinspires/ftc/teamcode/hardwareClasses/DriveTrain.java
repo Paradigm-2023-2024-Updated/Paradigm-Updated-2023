@@ -41,6 +41,9 @@ public class DriveTrain {
         imu.initialize(parameters); */
 
         //Reverse Necessary Motors (flip this)
+        //this.LFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //this.LBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
         this.LFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         this.LBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -62,7 +65,7 @@ public class DriveTrain {
         double RBPower = Range.clip(LRPower + FBPower - rotation, -1.0, 1.0);
 
         // Set motor powers
-        this.LFMotor.setPower(0.8*LFPower);
+        this.LFMotor.setPower(.8*LFPower);
         this.RFMotor.setPower(.8*RFPower);
         this.LBMotor.setPower(.8*LBPower);
         this.RBMotor.setPower(.8*RBPower);
