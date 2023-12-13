@@ -57,47 +57,12 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         telemetry.addData("Center X", position);
         telemetry.addData("Center Y",positionY);
 
-        if (position > 270 && position < 330) {
+        if (position > 290 && position < 350) {
             telemetry.addData("Status", "Centered!");
-        } else if (position < 270) {
+        } else if (position < 290) {
             // Turn Left
             telemetry.addData("Status", "Turn Left");
 
-            LFMotor.setTargetPosition(200);
-            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LFMotor.setPower(1);
-
-            RFMotor.setTargetPosition(200);
-            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RFMotor.setPower(1);
-
-
-            LBMotor.setTargetPosition(200);
-            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LBMotor.setPower(1);
-
-
-            RBMotor.setTargetPosition(200);
-            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RBMotor.setPower(1);
-
-            while (LFMotor.isBusy() && RFMotor.isBusy()&& RBMotor.isBusy()&& LBMotor.isBusy()) {
-                // Do nothing
-            }
-
-
-            LFMotor.setPower(0);
-            RFMotor.setPower(0);
-            LBMotor.setPower(0);
-            RBMotor.setPower(0);
-            RBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            LBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            LFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            RFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            // Add code to turn the robot right
-            } else if (position > 330) {
-            // Turn right
-            telemetry.addData("Status", "Turn Right");
             LFMotor.setTargetPosition(-200);
             LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LFMotor.setPower(1);
@@ -116,7 +81,42 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             RBMotor.setPower(1);
 
-            while (LFMotor.isBusy() && RFMotor.isBusy()&& RBMotor.isBusy()&& LBMotor.isBusy()) {
+            while (LFMotor.isBusy()&& RFMotor.isBusy()&& RBMotor.isBusy()&& LBMotor.isBusy()) {
+                // Do nothing
+            }
+
+
+            LFMotor.setPower(0);
+            RFMotor.setPower(0);
+            LBMotor.setPower(0);
+            RBMotor.setPower(0);
+            RBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            LBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            LFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            RFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            // Add code to turn the robot right
+            } else if (position > 350) {
+            // Turn right
+            telemetry.addData("Status", "Turn Right");
+            LFMotor.setTargetPosition(200);
+            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LFMotor.setPower(1);
+
+            RFMotor.setTargetPosition(200);
+            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            RFMotor.setPower(1);
+
+
+            LBMotor.setTargetPosition(200);
+            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LBMotor.setPower(1);
+
+
+            RBMotor.setTargetPosition(200);
+            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            RBMotor.setPower(1);
+
+            while (LFMotor.isBusy()&& RFMotor.isBusy()&& RBMotor.isBusy()&& LBMotor.isBusy()) {
                 // Do nothing
             }
 
