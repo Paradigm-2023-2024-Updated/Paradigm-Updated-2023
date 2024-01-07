@@ -27,12 +27,12 @@ public class MecanumCode extends OpMode {
     //GamePad 1
     DcMotor LFMotor, RBMotor, RFMotor, LBMotor;
     double angle;
-    double joystickX;//x-value of the joystick
-    double joystickY;//y-value of the joystick
+    double joystickX; //x-value of the joystick
+    double joystickY; //y-value of the joystick
     double LFPower, LBPower, RFPower, RBPower;
     double magnitude;
     double pivot;
-    double max;//maximum value of one of the motor powers so we do not exceed 1 or -1
+    double max; //maximum value of one of the motor powers so we do not exceed 1 or -1
 
 //_________________________________________________________________________________________
 
