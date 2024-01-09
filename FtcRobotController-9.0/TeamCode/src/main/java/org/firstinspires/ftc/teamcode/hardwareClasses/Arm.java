@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.hardwareClasses;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -11,6 +13,7 @@ public class Arm {
     DcMotor arm, linearActuator;
 
     Servo wrist,elbow;
+    int arm_t, la_t;
 
 
 
@@ -31,6 +34,32 @@ public class Arm {
 
 
 
+    }
+
+    public void moveArm(int arm, int la) {
+        arm_t += arm;
+        la_t += la;
+
+        this.arm.setTargetPosition(arm_t);
+        this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.arm.setPower(0.5);
+
+        linearActuator.setTargetPosition(la_t);
+        linearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        linearActuator.setPower(0.5);
+
+        telemetry.addData("arm",arm_t);
+        telemetry.addData("LA",la_t);
+
+        while (this.arm.isBusy() || linearActuator.isBusy()) {
+            // Do nothing
+            if (!linearOpMode.opModeIsActive()) {
+                break;
+            }
+        }
+
+        this.arm.setPower(0);
+        linearActuator.setPower(0);
     }
 
     public void rotateArm(double power){
