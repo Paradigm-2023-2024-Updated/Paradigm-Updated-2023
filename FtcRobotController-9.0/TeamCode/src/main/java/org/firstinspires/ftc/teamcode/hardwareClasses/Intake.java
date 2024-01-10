@@ -28,7 +28,7 @@ public class Intake {
         }
     public void stopRoller() {
         // Check if the button is pressed
-        // Button is presse
+        // Button is pressed
         this.roller.setPower(0);
 
     }
