@@ -217,11 +217,11 @@ public class Red1 extends LinearOpMode {
 
 class ColorDetectionPipelineRed1 extends OpenCvPipeline {
 
-public static double centerX;
-public static double centerY;
+    public static double centerX;
+    public static double centerY;
 
-@Override
-public Mat processFrame(Mat input) {
+    @Override
+    public Mat processFrame(Mat input) {
         // Process the frame using OpenCV
         Imgproc.GaussianBlur(input, input, new Size(9, 9), 0);
         Imgproc.cvtColor(input, input, Imgproc.COLOR_RGB2HSV);
@@ -247,18 +247,18 @@ public Mat processFrame(Mat input) {
         Imgproc.drawContours(input, contours, -1, new Scalar(0, 255, 0), 2);
 
         if (!contours.isEmpty()) {
-        for (MatOfPoint contour : contours) {
-        double contourArea = Imgproc.contourArea(contour);
-        if (contourArea >= 200) {
-        MatOfPoint largestContour = Collections.max(contours, Comparator.comparing(Imgproc::contourArea));
-        Moments moments = Imgproc.moments(largestContour);
-        centerX = moments.m10 / moments.m00;
-        centerY = moments.m01 / moments.m00;
-        // Draw a circle at the center point
-        Imgproc.circle(input, new Point(centerX, centerY), 10, new Scalar(255, 0, 0), -1);
-        } else {
-        centerX = -1;
-        centerY = -1;
+            for (MatOfPoint contour : contours) {
+                double contourArea = Imgproc.contourArea(contour);
+                if (contourArea >= 200) {
+                    MatOfPoint largestContour = Collections.max(contours, Comparator.comparing(Imgproc::contourArea));
+                    Moments moments = Imgproc.moments(largestContour);
+                    centerX = moments.m10 / moments.m00;
+                    centerY = moments.m01 / moments.m00;
+                    // Draw a circle at the center point
+                    Imgproc.circle(input, new Point(centerX, centerY), 10, new Scalar(255, 0, 0), -1);
+                } else {
+                    centerX = -1;
+                    centerY = -1;
         }
         }
         }
@@ -273,4 +273,4 @@ public Mat processFrame(Mat input) {
 
         return input;
         }
-        }
+}

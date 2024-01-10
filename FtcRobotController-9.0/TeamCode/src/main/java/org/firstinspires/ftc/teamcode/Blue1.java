@@ -99,6 +99,7 @@ public class Blue1 extends LinearOpMode {
         telemetry.addData("bl",bl_t);
         telemetry.addData("br",br_t);
         telemetry.update();
+
         while (LFMotor.isBusy() || RFMotor.isBusy() || RBMotor.isBusy() || LBMotor.isBusy()) {
             // Do nothing
             if (!opModeIsActive()) {
