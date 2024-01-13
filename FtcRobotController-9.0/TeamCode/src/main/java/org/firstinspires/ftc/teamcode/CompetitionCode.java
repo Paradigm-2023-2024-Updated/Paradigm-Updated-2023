@@ -29,13 +29,6 @@ public class CompetitionCode extends OpMode {
     double pos;
 
 
-    //GamePad 2
-    DcMotor linearSlide;
-    DcMotor turnTable;
-
-
-
-
 
 
 //_________________________________________________________________________________________
@@ -105,11 +98,11 @@ public class CompetitionCode extends OpMode {
             arm.release();
         }
 
-        if (gamepad2.y){
+        if (gamepad2.a){
             pos -= 0.002;
             arm.elbowUp(pos);
         }
-        if (gamepad2.a) {
+        if (gamepad2.y) {
             pos += 0.002;
             arm.elbowDown(pos);
         }
@@ -120,6 +113,12 @@ public class CompetitionCode extends OpMode {
         }
         if (pos > 1.5){
             pos = 1.5;
+        }
+
+        if(gamepad1.dpad_up)
+        {
+            arm.moveArm(0);
+            arm.moveActuator(0);
         }
 
 

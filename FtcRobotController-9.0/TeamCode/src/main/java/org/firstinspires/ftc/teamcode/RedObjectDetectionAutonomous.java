@@ -43,31 +43,39 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
     DcMotor arm_m, linearActuator;
     Servo wrist,elbow;
     int tl_t, tr_t, bl_t, br_t; // _t for total
-    int arm_t, la_t;
+    int arm_t = 0, la_t = 0;
 
     private OpenCvCamera webcam;
 
-    public void moveArm(int arm, int la) {
+    public void moveArm(int arm, int la, boolean ignore) {
         arm_t += arm;
         la_t += la;
 
         arm_m.setTargetPosition(arm_t);
         arm_m.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm_m.setPower(0.5);
+        arm_m.setPower(0.85);
 
         linearActuator.setTargetPosition(la_t);
         linearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        linearActuator.setPower(0.5);
+        linearActuator.setPower(0.8);
 
-        telemetry.addData("arm",arm_t);
-        telemetry.addData("LA",la_t);
+        telemetry.addData("MA arm",arm_t);
+        telemetry.addData("MA LA",la_t);
+        telemetry.update();
+        sleep(1000);
 
         while (arm_m.isBusy() || linearActuator.isBusy()) {
             // Do nothing
-            if (!opModeIsActive()) {
+            if (!opModeIsActive() && !ignore) {
                 break;
             }
+            telemetry.addData("MA arm update", arm_m.getCurrentPosition());
+            telemetry.addData("MA la update", linearActuator.getCurrentPosition());
+            telemetry.update();
         }
+
+        telemetry.addData("MA done",la_t);
+        telemetry.update();
 
         arm_m.setPower(0);
         linearActuator.setPower(0);
@@ -81,19 +89,19 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
         LFMotor.setTargetPosition(-tl_t);
         LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        LFMotor.setPower(0.5);
+        LFMotor.setPower(0.7);
 
         RFMotor.setTargetPosition(tr_t);
         RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        RFMotor.setPower(0.5);
+        RFMotor.setPower(0.7);
 
         LBMotor.setTargetPosition(-bl_t);
         LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        LBMotor.setPower(0.5);
+        LBMotor.setPower(0.7);
 
         RBMotor.setTargetPosition(br_t);
         RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        RBMotor.setPower(0.5);
+        RBMotor.setPower(0.7);
 
         telemetry.addData("tl",tl_t);
         telemetry.addData("tr",tr_t);
@@ -105,6 +113,15 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             if (!opModeIsActive()) {
                 break;
             }
+            telemetry.addData("tl cur",LFMotor.getCurrentPosition());
+            telemetry.addData("tr cur",RFMotor.getCurrentPosition());
+            telemetry.addData("bl cur",LBMotor.getCurrentPosition());
+            telemetry.addData("br cur",RBMotor.getCurrentPosition());
+            telemetry.addData("tl on",LFMotor.isBusy());
+            telemetry.addData("tr on",RFMotor.isBusy());
+            telemetry.addData("bl on",LBMotor.isBusy());
+            telemetry.addData("br on",RBMotor.isBusy());
+            telemetry.update();
         }
 
         LFMotor.setPower(0);
@@ -133,11 +150,12 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         arm_m = hardwareMap.dcMotor.get("arm");
         arm_m.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         linearActuator = hardwareMap.dcMotor.get("linearActuator");
+        linearActuator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm_m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         linearActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        arm_m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        linearActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//
+//        arm_m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        linearActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         wrist = hardwareMap.servo.get("wrist");
@@ -165,52 +183,245 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
 
 
-        waitForStart();
 
-        double position = ColorDetectionPipeline.centerX;
+        sleep(500);
+        telemetry.addData("Wrist", 1.1);
+        telemetry.update();
+        wrist.setPosition(1.1); // open
+        sleep(500);
 
-        telemetry.addData("Center X", position);
+        telemetry.addData("Arm", -1200);
+        telemetry.update();
+        moveArm(-1200,0, true);
+        sleep(500);
+
+        telemetry.addData("Elbow", 0.5);
+        telemetry.update();
+        sleep(500);
+        elbow.setPosition(0.5); // facing down
+
+        telemetry.addData("READY TO GO", 0);
         telemetry.update();
 
-        //0 is open, 0.7 is closed
+        waitForStart();
+
+
+        sleep(10);
+        telemetry.addLine("STRAFE");
+        telemetry.update();
+        move(0, 950, 0);
+        telemetry.addLine("SPIN");
+        telemetry.update();
+        sleep(10);
+        move(0, 0, 1000);
+
+        sleep(10);
+        telemetry.addLine("BACK");
+        telemetry.update();
+        move(-690, 0, 0);
+
+
+//        double position = ColorDetectionPipeline.centerX;
+        double position = -1.0;
+        while (position < 0.0) {
+            telemetry.addData("TRY POS", position);
+            telemetry.update();
+            position = ColorDetectionPipeline.centerX;
+            sleep(10);
+        }
+
+        sleep(200);
+        telemetry.addData("Center X", position);
+        telemetry.update();
+        sleep(500);
+        move(200, 0, 0);
+
+
+
+        //0.4 to 1.1 full range
+//        telemetry.addData("Wrist", 0.4);
+//        telemetry.update();
+//        wrist.setPosition(0.4); // closed
+//        sleep(2000);
+//        telemetry.addData("Wrist", 1.1);
+//        telemetry.update();
+//        wrist.setPosition(1.1); // open
+//        sleep(2000);
+//
+//        telemetry.addData("Arm", -1200);
+//        telemetry.update();
+//        moveArm(-1200,0);
+//        sleep(2000);
+//
+//        //0 is open, 0.7 is closed
+////        telemetry.addData("Elbow", 0.2);
+////        telemetry.update();
+////        sleep(1000);
+////        elbow.setPosition(0.2); // facing down
+////        sleep(2000);
+////        telemetry.addData("Elbow", 1.5);
+////        telemetry.update();
+////        elbow.setPosition(1.5); // completely up
+////        sleep(2000);
+//        telemetry.addData("Elbow", 0.5);
+//        telemetry.update();
+//        sleep(1000);
+//        elbow.setPosition(0.5); // facing down
+
+
+//        sleep(500);
+        /*
+        elbow.setPosition(1.5);
         sleep(1000);
-        elbow.setPosition(0.0);
-        sleep(2000);
-        elbow.setPosition(0.7);
-        sleep(2000);
+        wrist.setPosition(0.7);*/
 
-        //0.2 to 0.8 full range
-        wrist.setPosition(0.2);
-        sleep(2000);
-        wrist.setPosition(1.1);
-        sleep(2000);
-
-
-        /*sleep(2000);
-        wrist.setPosition(1.1);
-        sleep(2000);
-        moveArm(-10,0);*/
 
 
         if (position >= LEFT && position <= RIGHT) {
             telemetry.addData("Status", "Centered!");
             telemetry.update();
-//            move(1000, 0, 0);
+            sleep(500);
+            move(400, 0, 0);
+            move(0, -320, 0);
+            //-320 for red 2
+            move(400, 0, 0);
+//-----------------------------------------------------------
+
+            sleep(10);
+            telemetry.addData("LA", 1500);
+            telemetry.update();
+            moveArm(0,3500, false);
+            sleep(10);
+
+
+            telemetry.addData("Arm", 850);
+            telemetry.update();
+            moveArm(850,0, false);
+            sleep(10);
+
+
+
+            telemetry.addData("Wrist", 0.4);
+            telemetry.update();
+            wrist.setPosition(0.4); // open
+            sleep(10);
+
+            moveArm(-500,0, false);
+            moveArm(0,-3500, false);
+
+            sleep(10);
+
+            //move to backstage
+            move(-900,0,0);
+            move(0,0,900);
+            move(4000,0,0);
+            //1400 for red 1
+
+
         } else if (position < LEFT) {
             // Turn Left
-            telemetry.addData("Status", "Turn Left");
+            telemetry.addData("Status","Turn Left");
             telemetry.update();
+            sleep(500);
 
-//            move(1000, 0, -300);
+
+            move(500, 0, 0);
+            move(0, 0, -1000);
+            move(0, 600, 0);
+
+            //----------------------------------------
+
+            sleep(10);
+            telemetry.addData("LA", 1500);
+            telemetry.update();
+            moveArm(0,3600, false);
+            sleep(10);
+
+
+            telemetry.addData("Arm", 850);
+            telemetry.update();
+            moveArm(850,0, false);
+            sleep(10);
+
+
+
+            telemetry.addData("Wrist", 0.4);
+            telemetry.update();
+            wrist.setPosition(0.4); // open
+            sleep(10);
+
+            moveArm(-500,0, false);
+            moveArm(0,-3600, false);
+
+            //move to backstage
+            move(0, -1250, 0);
+            move(-4000,0,0);
+            //-1400 for red 2
+
 
 
         } else if (position > RIGHT) {
             // Turn right
             telemetry.addData("Status", "Turn Right");
             telemetry.update();
+            sleep(500);
 
-//            move(1000, 0, 300);
+            move(600, 0, 0);
+            move(0, 0, 900);
+            move(0, -450, 0);
+
+            //--------------------------------------------
+
+            sleep(10);
+            telemetry.addData("LA", 1500);
+            telemetry.update();
+            moveArm(0,3500, false);
+            sleep(10);
+
+
+            telemetry.addData("Arm", 850);
+            telemetry.update();
+            moveArm(850,0, false);
+            sleep(10);
+
+
+
+            telemetry.addData("Wrist", 0.4);
+            telemetry.update();
+            wrist.setPosition(0.4); // open
+            sleep(10);
+
+            moveArm(-500,0, false);
+            moveArm(0,-3300, false);
+
+            //move to backstage
+            move(0, 1400, 0);
+            move(4000,0,0);
+            //1400 for red 1
+
         }
+
+        /*sleep(10);
+        telemetry.addData("LA", 1500);
+        telemetry.update();
+        moveArm(0,3500, false);
+        sleep(10);
+
+
+        telemetry.addData("Arm", 850);
+        telemetry.update();
+        moveArm(850,0, false);
+        sleep(10);
+
+
+
+        telemetry.addData("Wrist", 0.4);
+        telemetry.update();
+        wrist.setPosition(0.4); // open
+        sleep(1000);
+
+        moveArm(-500,0, false);
+        moveArm(0,-3300, false);*/
 
     }
 }

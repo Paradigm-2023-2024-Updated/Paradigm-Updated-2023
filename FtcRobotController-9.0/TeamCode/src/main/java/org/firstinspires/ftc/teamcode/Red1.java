@@ -166,7 +166,7 @@ public class Red1 extends LinearOpMode {
 
         waitForStart();
 
-        double position = ColorDetectionPipelineRed1.centerX;
+        double position = ColorDetectionPipeline.centerX;
 
         telemetry.addData("Center X", position);
         telemetry.update();

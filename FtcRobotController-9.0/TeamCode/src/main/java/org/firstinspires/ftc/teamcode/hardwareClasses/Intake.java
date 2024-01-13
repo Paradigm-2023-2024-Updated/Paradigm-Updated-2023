@@ -23,7 +23,7 @@ public class Intake {
     public void spinRoller() {
         // Check if the button is pressed
                 // Button is pressed
-        this.roller.setPower(-0.8);
+        this.roller.setPower(-0.65);
 
         }
     public void stopRoller() {

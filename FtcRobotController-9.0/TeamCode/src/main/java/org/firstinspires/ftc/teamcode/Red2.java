@@ -166,10 +166,10 @@ public class Red2 extends LinearOpMode {
 
         waitForStart();
 
-        double position = ColorDetectionPipelineRed2.centerX;
+        double position = ColorDetectionPipeline.centerX;
 
         telemetry.addData("Center X", position);
-        telemetry.update();
+
 
         //0 is open, 0.7 is closed
         sleep(1000);
@@ -181,7 +181,7 @@ public class Red2 extends LinearOpMode {
         //0.2 to 0.8 full range
         wrist.setPosition(0.2);
         sleep(2000);
-        wrist.setPosition(1.1);
+        wrist.setPosition(0.8);
         sleep(2000);
 
 

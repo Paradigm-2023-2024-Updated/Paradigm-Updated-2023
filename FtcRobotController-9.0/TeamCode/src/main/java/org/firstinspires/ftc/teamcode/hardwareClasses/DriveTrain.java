@@ -18,7 +18,6 @@ public class DriveTrain {
     DcMotor LFMotor, RBMotor, RFMotor, LBMotor;
     int tl_t, tr_t, bl_t, br_t; // _t for total
 
-    BNO055IMU imu;
 
     public DriveTrain() {
     }
@@ -30,19 +29,6 @@ public class DriveTrain {
         this.RFMotor = hardwareMap.dcMotor.get("RFMotor");
         this.LBMotor = hardwareMap.dcMotor.get("LBMotor");
 
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-
-        // Set up the parameters for the IMU
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // You may need to calibrate and save calibration data
-        parameters.loggingEnabled = true;
-        parameters.loggingTag = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-        // Initialize the IMU
-        imu.initialize(parameters);
 
         //Reverse Necessary Motors (flip this)
         this.LFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -118,9 +104,6 @@ public class DriveTrain {
     }
 
 
-    public double getAngle() {
-        return -(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZXY, AngleUnit.RADIANS).firstAngle);
-    }
 
 
     //Create method to run robot specific number of ticks

@@ -36,32 +36,43 @@ public class Arm {
 
     }
 
-    public void moveArm(int arm, int la) {
-        arm_t += arm;
-        la_t += la;
+    public void moveArm(int arm) {
+        arm_t = arm;
+
 
         this.arm.setTargetPosition(arm_t);
         this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         this.arm.setPower(0.5);
 
+
+        while (this.arm.isBusy()) {
+            // Do nothing
+
+        }
+
+
+        this.arm.setPower(0);
+
+    }
+    public void moveActuator(int la) {
+
+        la_t = la;
+
+
         linearActuator.setTargetPosition(la_t);
         linearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         linearActuator.setPower(0.5);
 
-        telemetry.addData("arm",arm_t);
-        telemetry.addData("LA",la_t);
 
-        while (this.arm.isBusy() || linearActuator.isBusy()) {
+        while (linearActuator.isBusy()) {
             // Do nothing
-            if (!linearOpMode.opModeIsActive()) {
-                break;
-            }
+
         }
 
-        this.arm.setPower(0);
-        linearActuator.setPower(0);
-    }
 
+        linearActuator.setPower(0);
+
+    }
     public void rotateArm(double power){
         this.arm.setPower(.4*power);
     }
@@ -86,6 +97,33 @@ public class Arm {
     public void elbowDown(double down){
         this.elbow.setPosition(down);
     }
+
+    public void moveArm(int arm, int la, boolean ignore) {
+        arm_t += arm;
+        la_t += la;
+
+        this.arm.setTargetPosition(arm_t);
+        this.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.arm.setPower(0.85);
+
+        linearActuator.setTargetPosition(la_t);
+        linearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        linearActuator.setPower(0.8);
+
+        telemetry.addData("MA arm",arm_t);
+        telemetry.addData("MA LA",la_t);
+        telemetry.update();
+
+        while (this.arm.isBusy() || linearActuator.isBusy()) {
+            // Do nothing
+
+        }
+        telemetry.addData("MA arm update", this.arm.getCurrentPosition());
+        telemetry.addData("MA la update", linearActuator.getCurrentPosition());
+        telemetry.update();
+    }
+
+
 
 
 }
