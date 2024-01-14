@@ -1,6 +1,8 @@
 //motor.setzeropowerbehavior(dcmotor.brake) use after hanging
 
 package org.firstinspires.ftc.teamcode;
+import static android.os.SystemClock.sleep;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -117,8 +119,10 @@ public class CompetitionCode extends OpMode {
 
         if(gamepad1.dpad_up)
         {
-            arm.moveArm(0);
+            arm.wrist.setPosition(0.5);
             arm.moveActuator(0);
+            arm.moveArm(100);
+
         }
 
 

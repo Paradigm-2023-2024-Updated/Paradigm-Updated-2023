@@ -284,13 +284,13 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             move(400, 0, 0);
             move(0, -320, 0);
             //-320 for red 2
-            move(400, 0, 0);
+            move(470, 0, 0);
 //-----------------------------------------------------------
 
             sleep(10);
             telemetry.addData("LA", 1500);
             telemetry.update();
-            moveArm(0,3500, false);
+            moveArm(0,3400, false);
             sleep(10);
 
 
@@ -304,15 +304,15 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             telemetry.addData("Wrist", 0.4);
             telemetry.update();
             wrist.setPosition(0.4); // open
-            sleep(10);
+            sleep(500);
 
             moveArm(-500,0, false);
-            moveArm(0,-3500, false);
+            moveArm(0,-3400, false);
 
             sleep(10);
 
             //move to backstage
-            move(-900,0,0);
+            move(-930,0,0);
             move(0,0,900);
             move(4000,0,0);
             //1400 for red 1
@@ -334,7 +334,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             sleep(10);
             telemetry.addData("LA", 1500);
             telemetry.update();
-            moveArm(0,3600, false);
+            moveArm(0,3400, false);
             sleep(10);
 
 
@@ -348,10 +348,10 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             telemetry.addData("Wrist", 0.4);
             telemetry.update();
             wrist.setPosition(0.4); // open
-            sleep(10);
+            sleep(500);
 
             moveArm(-500,0, false);
-            moveArm(0,-3600, false);
+            moveArm(0,-3400, false);
 
             //move to backstage
             move(0, -1250, 0);
@@ -375,7 +375,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             sleep(10);
             telemetry.addData("LA", 1500);
             telemetry.update();
-            moveArm(0,3500, false);
+            moveArm(0,3400, false);
             sleep(10);
 
 
@@ -389,10 +389,10 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             telemetry.addData("Wrist", 0.4);
             telemetry.update();
             wrist.setPosition(0.4); // open
-            sleep(10);
+            sleep(500);
 
             moveArm(-500,0, false);
-            moveArm(0,-3300, false);
+            moveArm(0,-3400, false);
 
             //move to backstage
             move(0, 1400, 0);
@@ -400,28 +400,6 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             //1400 for red 1
 
         }
-
-        /*sleep(10);
-        telemetry.addData("LA", 1500);
-        telemetry.update();
-        moveArm(0,3500, false);
-        sleep(10);
-
-
-        telemetry.addData("Arm", 850);
-        telemetry.update();
-        moveArm(850,0, false);
-        sleep(10);
-
-
-
-        telemetry.addData("Wrist", 0.4);
-        telemetry.update();
-        wrist.setPosition(0.4); // open
-        sleep(1000);
-
-        moveArm(-500,0, false);
-        moveArm(0,-3300, false);*/
 
     }
 }
@@ -459,7 +437,7 @@ class ColorDetectionPipeline extends OpenCvPipeline {
         if (!contours.isEmpty()) {
             for (MatOfPoint contour : contours) {
                 double contourArea = Imgproc.contourArea(contour);
-                if (contourArea >= 200) {
+                if (contourArea >= 300) {
                     MatOfPoint largestContour = Collections.max(contours, Comparator.comparing(Imgproc::contourArea));
                     Moments moments = Imgproc.moments(largestContour);
                     centerX = moments.m10 / moments.m00;
