@@ -120,7 +120,7 @@ public class CompetitionCode extends OpMode {
         if(gamepad1.dpad_up)
         {
             arm.wrist.setPosition(0.5);
-            arm.moveActuator(0);
+            arm.moveActuator(-200);
             arm.moveArm(100);
 
         }

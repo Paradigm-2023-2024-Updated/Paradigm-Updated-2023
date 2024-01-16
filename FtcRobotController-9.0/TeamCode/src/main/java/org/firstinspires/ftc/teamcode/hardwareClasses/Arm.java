@@ -52,6 +52,7 @@ public class Arm {
 
 
         arm.setPower(0);
+        arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
     public void moveActuator(int la) {
@@ -70,14 +71,16 @@ public class Arm {
 
 
         linearActuator.setPower(0);
+        linearActuator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
     public void rotateArm(double power){
-        this.arm.setPower(-.4*power);
+
+        this.arm.setPower(.4*power);
     }
 
     public void rotateActuator(double power){
-        this.linearActuator.setPower(0.9*power);
+        this.linearActuator.setPower(-0.9*power);
     }
 
 

@@ -213,7 +213,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         telemetry.addLine("SPIN");
         telemetry.update();
         sleep(10);
-        move(0, 0, 1000);
+        move(0, 0, 975);
 
         sleep(10);
         telemetry.addLine("BACK");

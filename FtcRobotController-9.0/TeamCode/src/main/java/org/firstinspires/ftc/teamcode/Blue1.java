@@ -213,7 +213,7 @@ public class Blue1 extends LinearOpMode {
         telemetry.addLine("SPIN");
         telemetry.update();
         sleep(10);
-        move(0, 0, -1000);
+        move(0, 0, -990);
 
         sleep(10);
         telemetry.addLine("BACK");
@@ -313,7 +313,7 @@ public class Blue1 extends LinearOpMode {
 
             //move to backstage
             move(-1050,0,0);
-            move(0,0,-900);
+            move(0,0,-950);
             move(4300,0,0);
             //1400 for red 1
 
@@ -328,7 +328,7 @@ public class Blue1 extends LinearOpMode {
             move(500, 0, 0);
             move(0, 0, -1000);
             move(0, 650, 0);
-            move(30,0,0);
+            move(70,0,0);
 
             //----------------------------------------
 
@@ -369,7 +369,8 @@ public class Blue1 extends LinearOpMode {
 
             move(600, 0, 0);
             move(0, 0, 1000);
-            move(0, -430, 0);
+            move(0, -450, 0);
+            move(-130,0,0);
 
             //--------------------------------------------
 
