@@ -187,7 +187,7 @@ public class Blue1 extends LinearOpMode {
         sleep(500);
         telemetry.addData("Wrist", 1.1);
         telemetry.update();
-        wrist.setPosition(1.1); // open
+        wrist.setPosition(0.4); // open
         sleep(500);
 
         telemetry.addData("Arm", -1200);
@@ -303,10 +303,10 @@ public class Blue1 extends LinearOpMode {
 
             telemetry.addData("Wrist", 0.4);
             telemetry.update();
-            wrist.setPosition(0.4); // open
+            wrist.setPosition(1.1); // open
             sleep(500);
 
-            moveArm(-500,0, false);
+            moveArm(-850,0, false);
             moveArm(0,-3400, false);
 
             sleep(10);
@@ -348,10 +348,10 @@ public class Blue1 extends LinearOpMode {
 
             telemetry.addData("Wrist", 0.4);
             telemetry.update();
-            wrist.setPosition(0.4); // open
+            wrist.setPosition(1.1); // open
             sleep(500);
 
-            moveArm(-500,0, false);
+            moveArm(-850,0, false);
             moveArm(0,-3400, false);
 
             //move to backstage
@@ -390,10 +390,10 @@ public class Blue1 extends LinearOpMode {
 
             telemetry.addData("Wrist", 0.4);
             telemetry.update();
-            wrist.setPosition(0.4); // open
+            wrist.setPosition(1.1); // open
             sleep(500);
 
-            moveArm(-500,0, false);
+            moveArm(-850,0, false);
             moveArm(0,-3400, false);
 
             //move to backstage

@@ -187,17 +187,17 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         sleep(500);
         telemetry.addData("Wrist", 1.1);
         telemetry.update();
-        wrist.setPosition(1.1); // open
+        wrist.setPosition(0.4); // open
         sleep(500);
 
         telemetry.addData("Arm", -1200);
         telemetry.update();
         moveArm(-1200,0, true);
-        sleep(500);
+        sleep(50);
 
-        telemetry.addData("Elbow", 0.5);
+        telemetry.addData("Elbow", 0.9);
         telemetry.update();
-        sleep(500);
+        sleep(10);
         elbow.setPosition(0.5); // facing down
 
         telemetry.addData("READY TO GO", 0);
@@ -213,12 +213,16 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         telemetry.addLine("SPIN");
         telemetry.update();
         sleep(10);
-        move(0, 0, 975);
+        move(0, 0, 965);
 
         sleep(10);
         telemetry.addLine("BACK");
         telemetry.update();
         move(-690, 0, 0);
+
+        telemetry.addLine("ALIGN");
+        telemetry.update();
+        move(0, 120, 0);
 
 
 //        double position = ColorDetectionPipeline.centerX;
@@ -280,40 +284,39 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         if (position >= LEFT && position <= RIGHT) {
             telemetry.addData("Status", "Centered!");
             telemetry.update();
-            sleep(500);
+
             move(400, 0, 0);
-            move(0, -320, 0);
+            move(0, -220, 0);
             //-320 for red 2
-            move(470, 0, 0);
+            move(550, 0, 0);
 //-----------------------------------------------------------
 
-            sleep(10);
+
             telemetry.addData("LA", 1500);
             telemetry.update();
-            moveArm(0,3400, false);
-            sleep(10);
+            moveArm(0,3100, false);
+
 
 
             telemetry.addData("Arm", 850);
             telemetry.update();
             moveArm(850,0, false);
-            sleep(10);
+
 
 
 
             telemetry.addData("Wrist", 0.4);
             telemetry.update();
-            wrist.setPosition(0.4); // open
-            sleep(500);
+            wrist.setPosition(1.1); // open
+            sleep(1000);
 
-            moveArm(-500,0, false);
-            moveArm(0,-3400, false);
+            moveArm(-850,0, false);
+            moveArm(0,-3100, false);
 
-            sleep(10);
 
             //move to backstage
-            move(-930,0,0);
-            move(0,0,900);
+            move(-1100,0,0);
+            move(0,0,1000);
             move(4000,0,0);
             //1400 for red 1
 
@@ -322,39 +325,38 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             // Turn Left
             telemetry.addData("Status","Turn Left");
             telemetry.update();
-            sleep(500);
 
 
-            move(500, 0, 0);
+
+            move(600, 0, 0);
             move(0, 0, -1000);
-            move(0, 600, 0);
+            move(0, 550, 0);
 
             //----------------------------------------
 
-            sleep(10);
+
             telemetry.addData("LA", 1500);
             telemetry.update();
-            moveArm(0,3400, false);
-            sleep(10);
+            moveArm(0,3100, false);
+
 
 
             telemetry.addData("Arm", 850);
             telemetry.update();
             moveArm(850,0, false);
-            sleep(10);
 
 
 
             telemetry.addData("Wrist", 0.4);
             telemetry.update();
-            wrist.setPosition(0.4); // open
-            sleep(500);
+            wrist.setPosition(1.1); // open
+            sleep(1000);
 
-            moveArm(-500,0, false);
-            moveArm(0,-3400, false);
+            moveArm(-850,0, false);
+            moveArm(0,-3100, false);
 
             //move to backstage
-            move(0, -1250, 0);
+            move(0, -1300, 0);
             move(-4000,0,0);
             //-1400 for red 2
 
@@ -364,38 +366,35 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             // Turn right
             telemetry.addData("Status", "Turn Right");
             telemetry.update();
-            sleep(500);
+
 
             move(600, 0, 0);
-            move(0, 0, 900);
-            move(0, -450, 0);
+            move(0, 0, 1000);
+            move(0, -550, 0);
 
             //--------------------------------------------
 
-            sleep(10);
+
             telemetry.addData("LA", 1500);
             telemetry.update();
-            moveArm(0,3400, false);
-            sleep(10);
+            moveArm(0,3100, false);
 
 
             telemetry.addData("Arm", 850);
             telemetry.update();
             moveArm(850,0, false);
-            sleep(10);
-
 
 
             telemetry.addData("Wrist", 0.4);
             telemetry.update();
-            wrist.setPosition(0.4); // open
-            sleep(500);
+            wrist.setPosition(1.1); // open
+            sleep(1000);
 
-            moveArm(-500,0, false);
-            moveArm(0,-3400, false);
+            moveArm(-850,0, false);
+            moveArm(0,-3100, false);
 
             //move to backstage
-            move(0, 1400, 0);
+            move(0, 1300, 0);
             move(4000,0,0);
             //1400 for red 1
 

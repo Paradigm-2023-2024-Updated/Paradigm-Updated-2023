@@ -38,11 +38,12 @@ public class Arm {
 
     public void moveArm(int a) {
 
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         arm.setTargetPosition(a);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.5);
+        arm.setPower(0.9);
 
 
         while (arm.isBusy()) {
@@ -57,15 +58,16 @@ public class Arm {
     }
     public void moveActuator(int la) {
 
-
+        linearActuator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         linearActuator.setTargetPosition(la);
         linearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        linearActuator.setPower(0.5);
+        linearActuator.setPower(0.9);
 
 
         while (linearActuator.isBusy()) {
             // Do nothing
+
 
         }
 
@@ -73,6 +75,32 @@ public class Arm {
         linearActuator.setPower(0);
         linearActuator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+    }
+
+
+    public void setFinalPosition(){
+        linearActuator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        linearActuator.setTargetPosition(0);
+        arm.setTargetPosition(-800);
+
+        linearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        linearActuator.setPower(0.9);
+        arm.setPower(0.9);
+
+        while (linearActuator.isBusy() || arm.isBusy()) {
+            // Wait for motors to reach target positions
+        }
+
+        // Stop the motors when the target positions are reached
+        linearActuator.setPower(0);
+        arm.setPower(0);
+
+        linearActuator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     public void rotateArm(double power){
 
