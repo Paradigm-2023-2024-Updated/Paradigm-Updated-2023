@@ -185,7 +185,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
 
         sleep(500);
-        telemetry.addData("Wrist", 1.1);
+        telemetry.addData("Wrist", 0.4);
         telemetry.update();
         wrist.setPosition(0.4); // open
         sleep(500);
@@ -193,9 +193,9 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         telemetry.addData("Arm", -1200);
         telemetry.update();
         moveArm(-1200,0, true);
-        sleep(50);
+        sleep(500);
 
-        telemetry.addData("Elbow", 0.9);
+        telemetry.addData("Elbow", 0.5);
         telemetry.update();
         sleep(10);
         elbow.setPosition(0.5); // facing down
@@ -209,11 +209,11 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         sleep(10);
         telemetry.addLine("STRAFE");
         telemetry.update();
-        move(0, 950, 0);
+        move(0, 1000, 0);
         telemetry.addLine("SPIN");
         telemetry.update();
         sleep(10);
-        move(0, 0, 965);
+        move(0, 0, 950);
 
         sleep(10);
         telemetry.addLine("BACK");
@@ -222,7 +222,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
         telemetry.addLine("ALIGN");
         telemetry.update();
-        move(0, 120, 0);
+        move(0, 80, 0);
 
 
 //        double position = ColorDetectionPipeline.centerX;
@@ -241,43 +241,6 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
         move(200, 0, 0);
 
 
-
-        //0.4 to 1.1 full range
-//        telemetry.addData("Wrist", 0.4);
-//        telemetry.update();
-//        wrist.setPosition(0.4); // closed
-//        sleep(2000);
-//        telemetry.addData("Wrist", 1.1);
-//        telemetry.update();
-//        wrist.setPosition(1.1); // open
-//        sleep(2000);
-//
-//        telemetry.addData("Arm", -1200);
-//        telemetry.update();
-//        moveArm(-1200,0);
-//        sleep(2000);
-//
-//        //0 is open, 0.7 is closed
-////        telemetry.addData("Elbow", 0.2);
-////        telemetry.update();
-////        sleep(1000);
-////        elbow.setPosition(0.2); // facing down
-////        sleep(2000);
-////        telemetry.addData("Elbow", 1.5);
-////        telemetry.update();
-////        elbow.setPosition(1.5); // completely up
-////        sleep(2000);
-//        telemetry.addData("Elbow", 0.5);
-//        telemetry.update();
-//        sleep(1000);
-//        elbow.setPosition(0.5); // facing down
-
-
-//        sleep(500);
-        /*
-        elbow.setPosition(1.5);
-        sleep(1000);
-        wrist.setPosition(0.7);*/
 
 
 
@@ -305,7 +268,7 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
 
 
-            telemetry.addData("Wrist", 0.4);
+            telemetry.addData("Wrist", 1.1);
             telemetry.update();
             wrist.setPosition(1.1); // open
             sleep(1000);
@@ -315,8 +278,8 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
 
             //move to backstage
-            move(-1100,0,0);
-            move(0,0,1000);
+            move(-1200,0,0);
+            move(0,0,950);
             move(4000,0,0);
             //1400 for red 1
 
@@ -329,15 +292,15 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
 
             move(600, 0, 0);
-            move(0, 0, -1000);
-            move(0, 550, 0);
+            move(0, 0, -950);
+            move(0, 500, 0);
 
             //----------------------------------------
 
 
             telemetry.addData("LA", 1500);
             telemetry.update();
-            moveArm(0,3100, false);
+            moveArm(0,3300, false);
 
 
 
@@ -347,16 +310,16 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
 
 
-            telemetry.addData("Wrist", 0.4);
+            telemetry.addData("Wrist", 1.1);
             telemetry.update();
             wrist.setPosition(1.1); // open
             sleep(1000);
 
             moveArm(-850,0, false);
-            moveArm(0,-3100, false);
+            moveArm(0,-3300, false);
 
             //move to backstage
-            move(0, -1300, 0);
+            move(0, -1400, 0);
             move(-4000,0,0);
             //-1400 for red 2
 
@@ -369,15 +332,15 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
 
 
             move(600, 0, 0);
-            move(0, 0, 1000);
-            move(0, -550, 0);
+            move(0, 0, 950);
+            move(0, -500, 0);
 
             //--------------------------------------------
 
 
             telemetry.addData("LA", 1500);
             telemetry.update();
-            moveArm(0,3100, false);
+            moveArm(0,3300, false);
 
 
             telemetry.addData("Arm", 850);
@@ -391,10 +354,10 @@ public class RedObjectDetectionAutonomous extends LinearOpMode {
             sleep(1000);
 
             moveArm(-850,0, false);
-            moveArm(0,-3100, false);
+            moveArm(0,-3300, false);
 
             //move to backstage
-            move(0, 1300, 0);
+            move(0, 1400, 0);
             move(4000,0,0);
             //1400 for red 1
 
